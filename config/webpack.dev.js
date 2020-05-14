@@ -2,7 +2,7 @@
  * @Description: webpack开发环境配置
  * @Author: AodaZhang
  * @Date: 2020-05-12 12:31:15
- * @LastEditTime: 2020-05-12 16:24:28
+ * @LastEditTime: 2020-05-12 23:18:54
  */
 const { HotModuleReplacementPlugin } = require('webpack')
 const merge = require('webpack-merge')
@@ -40,8 +40,8 @@ module.exports = merge(commonConfig, {
               // modules: true
             }
           },
-          'less-loader',
-          'postcss-loader'
+          'postcss-loader',
+          'less-loader'
         ]
       }
     ]

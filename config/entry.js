@@ -2,7 +2,7 @@
  * @Description: webpack配置工具
  * @Author: AodaZhang
  * @Date: 2020-05-12 16:01:19
- * @LastEditTime: 2020-05-12 18:00:00
+ * @LastEditTime: 2020-05-12 22:55:22
  */
 const path = require('path')
 const glob = require('glob')
@@ -11,10 +11,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const entryFileName = 'index' // 默认入口ts、html文件名
 const srcPath = path.resolve(__dirname, '../src') // 打包入口路径
 const distPath = path.resolve(__dirname, '../dist') // 打包输出路径
-const jsFileName = 'js/' // js文件打包输出目录
-const cssFileName = 'css/' // css文件打包输出目录
-const imageFileName = 'image/' // 图片文件打包输出目录
-const fontFileName = 'font/' // font文件打包输出目录
+const jsFolderName = 'js/' // js文件打包输出目录
+const cssFolderName = 'css/' // css文件打包输出目录
+const imageFolderName = 'image/' // 图片文件打包输出目录
+const fontFolderName = 'font/' // font文件打包输出目录
 
 /**
  * @description: 多页应用入口文件处理函数
@@ -40,7 +40,11 @@ const filePathProcess = () => {
     htmlWebpackPlugins.push(new HtmlWebpackPlugin({
       template: templatePath,
       filename: `${entryKey}.html`,
-      chunks: [`${entryKey}`]
+      chunks: [`${entryKey}`],
+      meta: {
+        viewport: 'width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no',
+        description: 'CSS Animation Project Imitating MAD Effect'
+      }
     }))
   })
   return [entry, htmlWebpackPlugins]
@@ -53,8 +57,8 @@ module.exports = {
   entry: entryArray[0],
   htmlWebpackPlugins: entryArray[1],
   distPath,
-  jsFileName,
-  cssFileName,
-  imageFileName,
-  fontFileName
+  jsFolderName,
+  cssFolderName,
+  imageFolderName,
+  fontFolderName
 }

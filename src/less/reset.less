@@ -1,0 +1,350 @@
+/*
+ * @Description: css reset
+ * @Author: AodaZhang
+ * @Reference: http://csslab.cc/reset.html
+ * @Date: 2020-05-12 19:14:11
+ * @LastEditTime: 2020-05-13 12:35:41
+ */
+
+@charset "utf-8";
+
+// 一.Document文档标签
+html,
+body {
+  // 设置css默认字体
+  font-family: Avenir, Tahoma, Helvetica, 'PingFang SC', 'Microsoft YaHei',
+    Arial, sans-serif;
+  // 设置css字体抗锯齿
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  // 解决移动端浏览器横屏显示时字体缩放
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  // 解决移动端点击事件背景色
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  // 解决苹果设备滚动不流畅
+  -webkit-overflow-scrolling: touch;
+}
+
+// 二.Sections块标签
+// 1.移除指定标签的内外边距
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+
+// 2.修正h5标签在ie9以下的显示
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+menu,
+section,
+summary {
+  display: block;
+}
+
+// 3.修正换行线标签的显示
+hr {
+  box-sizing: content-box;
+  height: 0; // Firefox适配box-sizing
+  overflow: visible; // IE适配overflow
+}
+
+// 4.移除引用标签的quotes样式
+blockquote,
+q {
+  quotes: none;
+}
+
+// 5.设置表格标签的边框合并
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+// 6.移除无序列表/列表项标签的边距和样式
+ul,
+ul li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// 7.移除列表/列表标题/列表内容标签的边距
+dl,
+dt,
+dd {
+  margin: 0;
+  padding: 0;
+}
+
+// 三.Embedded嵌入式标签
+// 1.移除iframe标签的border
+iframe {
+  border: none;
+}
+
+// 2.修正音频/视频/绘图标签在ie9以下的显示
+audio,
+video,
+canvas {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+// 3.修正音频标签在iOS4-7上的显示
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+// 4.修正图片标签在IE上的显示
+img {
+  // 解决IE浏览器缩放图片失真
+  -ms-interpolation-mode: bicubic;
+  max-width: 100%;
+  border: none;
+}
+
+// 5.修正svg标签在IE上的显示
+svg:not(:root) {
+  overflow: hidden;
+}
+
+// 6.修正模版标签在IE上的显示
+template {
+  display: none;
+}
+
+// 四.Text文本标签
+// 1.移除标题标签的默认字体样式
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+// 2.修正链接标签的下划线样式
+a {
+  // 指定内联文字的下划线
+  -webkit-text-decoration-skip: objects; // 删除iOS8+和Safari8+中下划线链接的间隙
+  background-color: transparent; // 移除IE10中活动链接标签上的灰色背景
+  text-decoration: none; // 移除链接标签默认的下划线
+}
+
+// 3.移除链接标签点击和悬停的outline样式
+a:active,
+a:hover {
+  outline-width: 0;
+}
+
+// 4.修正强调标签的字体宽度样式
+b,
+strong {
+  font-weight: normal;
+}
+
+// 5.移除强调标签的字体斜体样式
+i,
+em {
+  font-style: normal;
+}
+
+// 6.修正缩写标签的样式
+abbr[title] {
+  border-bottom: none; // Firefox39+移除底边框
+  text-decoration: underline; // 设置文字下划线
+  text-decoration: underline dotted; // Chrome/Safari/IE/Opera设置文字下划线
+}
+
+// 7.修正代码标签的字体和字号
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+// 7.修正术语标签的字体样式为斜体（Android 4.3以下）
+dfn {
+  font-style: italic;
+}
+
+// 8.修正标记标签的字体颜色和背景色（IE9以下）
+mark {
+  background-color: #ff0;
+  color: #000;
+}
+
+// 9.修正小字标签的字体尺寸
+small {
+  font-size: 80%;
+}
+
+// 10.修正上下标标签对浏览器行高的影响
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+
+// 五.Form表单标签
+// 1.移除输入框/文本框/按钮/下拉选择框标签的边距和outline
+input,
+textarea,
+button,
+select {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  outline: none;
+}
+
+// 2.修正按钮标签的盒模型和行高（IE6~8）
+button {
+  box-sizing: content-box;
+  *line-height: normal;
+}
+
+// 3.修正下拉选择框标签的箭头（IE）
+select {
+  padding-right: 0 !important;
+}
+
+// 4.修正输入框/按钮标签禁用时的鼠标悬停样式
+input[disabled],
+button[disabled] {
+  cursor: default;
+}
+
+// 5.修正输入框/按钮标签的overflow问题（IE）
+input,
+button {
+  overflow: visible;
+}
+
+// 6.移除输入框/按钮标签的文本转换问题（IE、Firefox）
+button,
+select {
+  text-transform: none;
+}
+
+// 7.修正按钮标签/类型button、reset、submit的显示问题（Android4-）
+button,
+html [type='button'],
+[type='reset'],
+[type='submit'] {
+  // 指定元素以按钮形式呈现
+  -webkit-appearance: button;
+}
+
+// 8.移除按钮标签/类型button、reset、submit点击状态下的内边距和边框样式（Firefox）
+button::-moz-focus-inner,
+[type='button']::-moz-focus-inner,
+[type='reset']::-moz-focus-inner,
+[type='submit']::-moz-focus-inner {
+  padding: 0;
+  border-style: none;
+}
+
+// 9.修正按钮标签/类型button、reset、submit焦点状态下的outline样式（Firefox）
+button:-moz-focusring,
+[type='button']:-moz-focusring,
+[type='reset']:-moz-focusring,
+[type='submit']:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+// 10.修正表单分组容器标签的边距和边框样式
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+// 11.修正表单分组标题标签的兼容性问题
+legend {
+  box-sizing: border-box;
+  display: table;
+  max-width: 100%;
+  padding: 0; // 设置fieldset归0时legend不会被捕获
+  white-space: normal; // IE修复文本换行
+  color: inherit; // IE继承fieldset的字色
+}
+
+// 12.修正进度条标签的样式
+progress {
+  display: inline-block; // IE修复标签类型
+  vertical-align: baseline; // Chrome、Firefox、Opera设置标签基准线
+}
+
+// 13.移除文本框默认滚动条（IE）
+textarea {
+  overflow: auto;
+}
+
+// 14.修正属性type为checkbox/radio的标签盒模型和内边距（IE10-）
+[type='checkbox'],
+[type='radio'] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+// 15.修正属性type为number的标签递增和递减按钮的光标样式（Chrome）
+[type='number']::-webkit-inner-spin-button,
+[type='number']::-webkit-outer-spin-button {
+  height: auto;
+}
+
+// 16.修正属性type为search的标签以文本框形式呈现和outline样式（Chrome、Safari）
+[type='search'] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+// 17.修正属性type为search的标签内部填充取消按钮样式（Chrome、Safari）
+[type='search']::-webkit-search-cancel-button,
+[type='search']::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+// 18.修正input上传文件按钮和文字样式（Safari）
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+// 19.修正属性hidden时标签显示类型
+[hidden] {
+  display: none;
+}

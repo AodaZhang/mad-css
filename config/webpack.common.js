@@ -2,10 +2,10 @@
  * @Description: webpack基础配置
  * @Author: AodaZhang
  * @Date: 2020-05-12 12:31:07
- * @LastEditTime: 2020-05-12 17:59:30
+ * @LastEditTime: 2020-05-12 19:28:14
  */
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const { entry, htmlWebpackPlugins, distPath, imageFileName, fontFileName } = require('./entry')
+const { entry, htmlWebpackPlugins, distPath, imageFolderName, fontFolderName } = require('./entry')
 
 module.exports = {
   performance: false,
@@ -31,7 +31,7 @@ module.exports = {
           loader: 'url-loader',
           options: {
             name: '[name]_[hash].[ext]',
-            outputPath: imageFileName,
+            outputPath: imageFolderName,
             limit: 1024 * 20
           }
         }
@@ -42,7 +42,7 @@ module.exports = {
           loader: 'file-loader',
           options: {
             name: '[name]_[hash].[ext]',
-            outputPath: fontFileName,
+            outputPath: fontFolderName,
           }
         }
       }

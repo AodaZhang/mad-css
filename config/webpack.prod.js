@@ -2,7 +2,7 @@
  * @Description: webpack生产环境配置
  * @Author: AodaZhang
  * @Date: 2020-05-12 12:31:21
- * @LastEditTime: 2020-05-12 18:04:46
+ * @LastEditTime: 2020-05-12 23:42:32
  */
 const merge = require('webpack-merge')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -10,20 +10,20 @@ const TerserWebpackPlugin = require('terser-webpack-plugin')
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const commonConfig = require('./webpack.common')
-const { distPath, jsFileName, cssFileName } = require('./entry')
+const { distPath, jsFolderName, cssFolderName } = require('./entry')
 
 module.exports = merge(commonConfig, {
   mode: 'production',
   devtool: 'none',
   output: {
     publicPath: './',
-    filename: `${jsFileName}[name].[contenthash:8].js`,
+    filename: `${jsFolderName}[name].[contenthash:8].js`,
     path: distPath
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: `${cssFileName}[name].[contenthash:8].css`,
-      chunkFilename: `${cssFileName}[name].[contenthash:8].chunk.css`
+      filename: `${cssFolderName}[name].[contenthash:8].css`,
+      chunkFilename: `${cssFolderName}[name].[contenthash:8].chunk.css`
     }),
     new CompressionWebpackPlugin({
       filename: '[path].gz[query]',
@@ -47,8 +47,8 @@ module.exports = merge(commonConfig, {
               // modules: true
             }
           },
-          'less-loader',
-          'postcss-loader'
+          'postcss-loader',
+          'less-loader'
         ]
       }
     ]
