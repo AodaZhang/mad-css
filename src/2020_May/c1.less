@@ -2,7 +2,7 @@
  * @Description: c1镜头动画样式
  * @Author: AodaZhang
  * @Date: 2020-05-15 11:30:19
- * @LastEditTime: 2020-05-16 12:01:05
+ * @LastEditTime: 2020-05-16 19:15:05
  */
 
 @--c1-light: 35%;
@@ -41,6 +41,14 @@
     60% {
       .lg(bic, @--c1-color5, lighten(@--c1-color5, @--c1-light), 0deg);
     }
+
+    80% {
+      .lg(bic, @--c1-color5, lighten(@--c1-color5, @--c1-light), 0deg);
+    }
+
+    100% {
+      .lg(bic, @--c1-color5, lighten(@--c1-color5, @--c1-light), 0deg);
+    }
   }
 }
 
@@ -50,6 +58,7 @@
 
   @keyframes c1-font {
     0% {
+      visibility: visible;
       transform: scale(@--c1-font-scale1);
     }
 

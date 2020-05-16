@@ -2,7 +2,7 @@
  * @Description: webpack开发环境配置
  * @Author: AodaZhang
  * @Date: 2020-05-12 12:31:15
- * @LastEditTime: 2020-05-12 23:18:54
+ * @LastEditTime: 2020-05-16 19:09:22
  */
 const { HotModuleReplacementPlugin } = require('webpack')
 const merge = require('webpack-merge')
@@ -18,6 +18,7 @@ module.exports = merge(commonConfig, {
     path: distPath
   },
   devServer: {
+    host: "0.0.0.0",
     contentBase: distPath,
     open: false,
     port: 3000,
