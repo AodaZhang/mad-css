@@ -1,0 +1,78 @@
+/*
+ * @Description: 光源动画样式
+ * @Author: AodaZhang
+ * @Date: 2020-05-16 11:01:26
+ * @LastEditTime: 2020-05-16 11:24:19
+ */
+
+@--light-point-count: 4; // 点光源数量
+@--light-point-color1: rgba(255, 255, 255, 0.116);
+@--light-point-color2: rgba(255, 255, 133, 1);
+
+.light {
+  .point();
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: @--light-z;
+}
+
+// 1.c1点光源变化
+.point-ani(1) {
+  .keyf(point-ani1, @--c1-duration, @timing-function: @--animation-steps-1, @delay: @--c1-delay);
+
+  @keyframes point-ani1 {
+    60% {
+      .effect(point, 0, 0, @--light-point-color2);
+    }
+  }
+}
+
+.point-ani(2) {
+  .keyf(point-ani2, @--c1-duration, @timing-function: @--animation-steps-1, @delay: @--c1-delay);
+
+  @keyframes point-ani2 {
+    60% {
+      .effect(point, 100%, 0, @--light-point-color2);
+    }
+  }
+}
+
+// 点光源
+.point(@n: 1) when(@n <=@--light-point-count) {
+  &__point@{n} {
+    position: absolute;
+    width: 5rem;
+    height: 5rem;
+  }
+
+  &__point@{n} when(@n =1) {
+    .point-ani(1);
+    .effect(point, 0, 0, @--light-point-color1);
+    top: 0;
+    left: 0;
+  }
+
+  &__point@{n} when(@n =2) {
+    .point-ani(2);
+    .effect(point, 100%, 0, @--light-point-color1);
+    top: 0;
+    right: 0;
+  }
+
+  &__point@{n} when(@n =3) {
+    .effect(point, 0, 100%, @--light-point-color1);
+    bottom: 0;
+    left: 0;
+  }
+
+  &__point@{n} when(@n =4) {
+    .effect(point, 100%, 100%, @--light-point-color1);
+    bottom: 0;
+    right: 0;
+  }
+
+  .point(@n + 1);
+}

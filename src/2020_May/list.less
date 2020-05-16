@@ -1,0 +1,136 @@
+/*
+ * @Description: 列表背景样式
+ * @Author: AodaZhang
+ * @Date: 2020-05-16 10:19:53
+ * @LastEditTime: 2020-05-16 12:25:07
+ */
+
+@--list1-light: 35%; // 颜色增亮
+@--list1-hue: 50; // 色相偏转
+@--list1-angle: 60deg; // 渐变角度
+@--list1-count: 8; // 列表数量
+@--list1-item-count: 4; // 列表项数量
+@--list1-color1: rgb(40, 205, 255);
+@--list1-color2: rgb(55, 58, 255);
+@--list1-color3: rgb(93, 255, 29);
+@--list1-color4: rgb(255, 55, 205);
+@--list2-light: 10%; // 列表2颜色增亮
+@--list2-item-count: 4; // 列表2数量
+@--list2-color1: rgb(255, 92, 233);
+@--list2-color2: rgb(253, 254, 121);
+@--list2-color3: rgb(177, 252, 122);
+@--list2-color4: rgb(187, 234, 255);
+
+// 列表1 mixin
+.item1(@color, @n: 1) when(@n <=@--list1-item-count) {
+
+  &__item@{n} {
+    @lcolor: spin(@color, @n * @--list1-hue);
+    .fle-i(0, 0);
+    .lg(bic, @lcolor, lighten(@lcolor, @--list1-light), @angle: @--list1-angle);
+    .bs(nor);
+    width: 6rem;
+    height: 3rem;
+  }
+
+  .item1(@color, @n + 1);
+}
+
+.list1(@n: 1) when(@n <=@--list1-count) {
+  &__list@{n} {
+    .fle(@flex-wrap: nowrap, @justify-content: flex-start);
+    width: 100%;
+  }
+
+  &__list@{n} when(@n =1) {
+    .item1(@--list1-color1);
+  }
+
+  &__list@{n} when(@n =2) {
+    .item1(@--list1-color2);
+    transform: translateX(-3rem);
+  }
+
+  &__list@{n} when(@n =3) {
+    .item1(@--list1-color3);
+  }
+
+  &__list@{n} when(@n =4) {
+
+    .item1(@--list1-color4);
+    transform: translateX(3rem);
+  }
+
+  &__list@{n} when(@n =5) {
+    .item1(@--list1-color1);
+  }
+
+  &__list@{n} when(@n =6) {
+    .item1(@--list1-color2);
+    transform: translateX(3rem);
+  }
+
+  &__list@{n} when(@n =7) {
+    .item1(@--list1-color3);
+  }
+
+  &__list@{n} when(@n =8) {
+    .item1(@--list1-color4);
+    transform: translateX(3rem);
+  }
+
+  .list1(@n + 1);
+}
+
+
+// 列表2 mixin
+.item2(@n: 1) when(@n <=@--list2-item-count) {
+
+  &__item@{n} {
+    .fle-i(1, 1);
+    .bs(nor);
+    height: 100%;
+  }
+
+  &__item@{n} when(@n =1) {
+    .lg(bic, lighten(@--list2-color1, @--list2-light), @--list2-color1);
+  }
+
+  &__item@{n} when(@n =2) {
+    .lg(bic, lighten(@--list2-color2, @--list2-light), @--list2-color2);
+  }
+
+  &__item@{n} when(@n =3) {
+    .lg(bic, lighten(@--list2-color3, @--list2-light), @--list2-color3);
+  }
+
+  &__item@{n} when(@n =4) {
+    .list-ani(list2);
+    .lg(bic, lighten(@--list2-color4, @--list2-light), @--list2-color4);
+  }
+
+  .item2(@n + 1);
+}
+
+.list2() {
+  & {
+    .fle(row-reverse, nowrap);
+    width: 110%;
+    height: 100%;
+    .item2();
+  }
+}
+
+.list-ani(list2) {
+  .keyf(list-ani2, @--c3-duration, @timing-function: ease, @delay: @--c3-delay);
+
+  @keyframes list-ani2 {
+    from {
+      width: 0;
+    }
+
+    to {
+      width: 70%;
+    }
+  }
+}

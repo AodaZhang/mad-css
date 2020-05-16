@@ -1,0 +1,153 @@
+/*
+ * @Description: mycolor主样式
+ * @Author: AodaZhang
+ * @Date: 2020-05-12 18:14:34
+ * @LastEditTime: 2020-05-16 12:20:56
+ */
+@import '../less/index.less';
+@import './transition.less';
+@import './light.less';
+@import './list.less';
+@import './c1.less';
+@import './c2.less';
+@import './c3.less';
+
+// 动画执行参数
+@--c1-delay: 0.5s; // 镜头1延迟时间
+@--c1-duration: 1.5s; // 镜头1执行时间
+@--tran1-delay: @--c1-delay + @--c1-duration - 0.2s; // 转场1延迟时间
+@--tran1-duration: 1s; // 转场1执行时间
+@--c2-delay: @--c1-delay + @--c1-duration; // 镜头2延迟时间
+@--c2-duration: 3.5s; // 镜头2执行时间
+@--c3-delay: @--c2-delay + @--c2-duration - 1.0s; // 镜头3延迟时间
+@--c3-duration: 5s; // 镜头3执行时间
+
+// 层数
+@--transition-z: 10;
+@--light-z: 5;
+@--c1-z: 1;
+@--c2-z: 1;
+@--c3-z: 2;
+
+
+html {
+  @media only @--device-screen-small {
+    font-size: 100vw / 7.5;
+  }
+
+  font-size: 100px;
+}
+
+body {
+  .cen(fle);
+  background: #0F2027;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 6rem;
+  max-width: 10rem;
+  max-height: 100%;
+  background: black;
+  overflow: hidden;
+
+  .c1 {
+    .cen(fle);
+    .c1-ani(color);
+    font-family: Arial;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: @--c1-z;
+    transform: translateZ(0);
+    visibility: hidden;
+
+    // 文字
+    &__text {
+      .c1-ani(font);
+
+      &--title {
+        .fz(0.7rem, @text-align: center);
+        .fc(@--c1-font-color, @text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1));
+
+        &::after {
+          .effect(glass, 2.6rem, 0.2rem, @color: @--c1-grass-color);
+          .fz(0.2rem, @text-align: center);
+          .fc(@--c1-font-color);
+          content: '気分はちよっと量りで';
+          position: absolute;
+          left: 50%;
+          bottom: -40%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+  }
+
+  .c2 {
+    .c2-ani(main);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transform: translateZ(0);
+    z-index: @--c2-z;
+    visibility: hidden;
+
+    &__text {
+      .c2-ani(font);
+      .fz(0.2rem, @text-align: center);
+      .fc(@--c2-font-color);
+      .br(3px);
+      position: absolute;
+      right: 0;
+      top: 46.5%;
+      padding: 0.05rem 0.1rem;
+      background: @--c2-grass-color;
+    }
+
+    &__bg {
+      .c2-ani(bg);
+      width: 100%;
+      height: 100%;
+      transform: translateX(-45%) rotate(-30deg);
+    }
+
+    .list1();
+  }
+
+  .c3 {
+    .c3-ani(main);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transform: translateZ(0);
+    z-index: @--c3-z;
+    visibility: hidden;
+
+    &__list {
+      .c3-ani(bg);
+      .list2();
+    }
+
+    &__text {
+      .c3-ani(font);
+      .fz(0.2rem, @text-align: center);
+      .fc(@--c3-font-color);
+      .br(3px);
+      position: absolute;
+      left: 0;
+      top: 46.5%;
+      padding: 0.05rem 0.1rem;
+      background: @--c3-grass-color;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+/*
+ * @Description: less shape mixin
+ * @Author: AodaZhang
+ * @Date: 2020-05-15 09:45:49
+ * @LastEditTime: 2020-05-15 14:17:19
+ */
+
+// 一.三角型
+// 1.border实现
+.triangle(bo, @size: 100px, @color: rgba(50, 50, 50, 1)) {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  .bo(nor, @color, @size, @border-type: border-bottom);
+  // 勾股计算等边三角形1/2边长
+  .bo(nor, transparent, @size / 1.7, @border-type: border-left);
+  .bo(nor, transparent, @size / 1.7, @border-type: border-right);
+}
+
+// 二.圆形
+// 1.border-radius实现：会改变容器尺寸
+.circle(br, @size: 100px) {
+  width: @size;
+  height: @size;
+  .br(nor, 50%);
+}
+
+// 2.clip-path实现：不会改变容器尺寸
+.circle(cp, @radius: 50%, @cenX: center, @cenY: center) {
+  .cp(nor, circle(@radius at @cenX @cenY));
+}
+
+// 三.矩形
+// 1.clip-path实现
+.rectangle(cp, @x: 10px, @y: @x) {
+  .cp(nor, inset(@x @y));
+}

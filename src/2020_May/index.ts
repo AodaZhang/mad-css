@@ -1,10 +1,10 @@
 /*
- * @Description:
+ * @Description: 2020_May entry
  * @Author: AodaZhang
  * @Date: 2020-05-12 12:30:16
- * @LastEditTime: 2020-05-14 11:08:09
+ * @LastEditTime: 2020-05-15 10:01:29
  */
-import '../styles/reset.less'
-import './style/index.less'
+import '../less/reset.less'
+import './index.less'
 
-module.hot && module.hot.accept('./style/index.less', () => {})
+module.hot && module.hot.accept('./index.less', () => {})

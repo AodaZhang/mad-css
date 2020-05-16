@@ -1,0 +1,40 @@
+/*
+ * @Description: 转场动画样式
+ * @Author: AodaZhang
+ * @Date: 2020-05-15 18:27:29
+ * @LastEditTime: 2020-05-16 11:18:14
+ */
+
+@--tran1-color1: rgb(255, 255, 100);
+@--tran1-color2: white;
+@--tran1-color3: transparent;
+
+// c1转场
+.tran1 {
+  .tran-ani(1);
+  .circle(cp);
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+  margin: 0 auto;
+  background: radial-gradient(circle farthest-corner at center, @--tran1-color3 0%, @--tran1-color2 25%, @--tran1-color1 50%, @--tran1-color1 100%);
+  z-index: @--transition-z;
+  visibility: hidden;
+}
+
+
+.tran-ani(1) {
+  .keyf(tran-ani1, @--tran1-duration, @timing-function: ease-in, @delay: @--tran1-delay);
+
+  @keyframes tran-ani1 {
+    0% {
+      visibility: visible;
+      transform: scale(0.1);
+    }
+
+    100% {
+      transform: scale(30);
+      opacity: 0;
+    }
+  }
+}

@@ -1,0 +1,58 @@
+/*
+ * @Description: c3镜头动画样式
+ * @Author: AodaZhang
+ * @Date: 2020-05-16 12:00:44
+ * @LastEditTime: 2020-05-16 12:29:25
+ */
+
+@--c3-font-color: white;
+@--c3-grass-color: rgba(140, 159, 170, 0.404);
+
+// 1.整体变化
+.c3-ani(main) {
+  .keyf(c3-main, @--c3-duration, @timing-function: ease, @delay: @--c3-delay);
+
+  @keyframes c3-main {
+    0% {
+      visibility: visible;
+    }
+
+    90% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
+// 2.背景位移
+.c3-ani(bg) {
+  .keyf(c3-bg, @--c3-duration, @timing-function: @--animation-bezier-1, @delay: @--c3-delay);
+
+  @keyframes c3-bg {
+    from {
+      transform: translateX(-100%);
+    }
+
+    to {
+      transform: translateX(0%);
+    }
+  }
+}
+
+// 3.文字位移
+.c3-ani(font) {
+  .keyf(c3-font, @--c3-duration, @timing-function: ease-out, @delay: @--c3-delay);
+
+  @keyframes c3-font {
+    from {
+      transform: translateX(-250%);
+    }
+
+    to {
+      transform: translateX(120%);
+    }
+  }
+}

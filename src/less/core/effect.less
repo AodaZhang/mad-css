@@ -1,0 +1,31 @@
+/*
+ * @Description: less effect mixin
+ * @Author: AodaZhang
+ * @Date: 2020-05-15 13:21:00
+ * @LastEditTime: 2020-05-15 17:01:09
+ */
+
+// 1.毛玻璃
+.effect(glass, @width: 100px, @height: @width, @baseUrl: '', @imgName: '', @imgExt: 'png', @color: rgba(0, 0, 0, 0.2), @border-radius: 2px) {
+  width: @width;
+  height: @height;
+  border-radius: @border-radius;
+  background: @color;
+
+  &::before {
+    .ib(ofl, @baseUrl, @imgName, @imgExt);
+    .fi(blu, 5px);
+    content: '';
+    z-index: -1;
+    position: absolute;
+    left: 0;
+    width: @width;
+    height: @height;
+    border-radius: @border-radius;
+  }
+}
+
+// 2.模拟点光源
+.effect(point, @x, @y, @icolor: white) {
+  background: radial-gradient(circle farthest-corner at @x @y, @icolor 0%, transparent 60%);
+}

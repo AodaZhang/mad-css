@@ -1,0 +1,51 @@
+/*
+ * @Description: c2镜头动画样式
+ * @Author: AodaZhang
+ * @Date: 2020-05-16 01:10:33
+ * @LastEditTime: 2020-05-16 12:19:10
+ */
+
+@--c2-font-color: white;
+@--c2-grass-color: rgba(140, 159, 170, 0.404);
+
+
+// 1.整体变化
+.c2-ani(main) {
+  .keyf(c2-main, @--c2-duration + 1s, @timing-function: @--animation-steps-1, @delay: @--c2-delay);
+
+  @keyframes c2-main {
+    from {
+      visibility: visible;
+    }
+  }
+}
+
+// 2.背景位移
+.c2-ani(bg) {
+  .keyf(c2-bg, @--c2-duration, @timing-function: ease-out, @delay: @--c2-delay);
+
+  @keyframes c2-bg {
+    from {
+      transform: translateX(-45%) rotate(-30deg);
+    }
+
+    to {
+      transform: translateX(-80%) rotate(-30deg);
+    }
+  }
+}
+
+// 3.文字位移
+.c2-ani(font) {
+  .keyf(c2-font, @--c2-duration, @timing-function: ease-out, @delay: @--c2-delay);
+
+  @keyframes c2-font {
+    from {
+      transform: translateX(100%);
+    }
+
+    to {
+      transform: translateX(-100%);
+    }
+  }
+}

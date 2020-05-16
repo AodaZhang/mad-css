@@ -2,12 +2,27 @@
  * @Description: less define
  * @Author: AodaZhang
  * @Date: 2020-05-14 14:54:16
- * @LastEditTime: 2020-05-14 23:57:31
+ * @LastEditTime: 2020-05-16 12:16:52
  */
 
-// dpr属性判断
-@--dpr3: ~"(-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3)";
-@--dpr2: ~"(-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2)";
+// 一.设备宽度
+@--device-screen-large: ~"screen and (min-width:50.1em)"; // 800px+
+@--device-screen-middle: ~"screen and (min-width:30.1em) and (max-width:50em)"; // 480px~800px
+@--device-screen-small: ~"screen and (max-width:30em)"; // 480px-
 
-// 图片目录路径1
-@--localImgSrc1: '../../2020_May/img';
+
+// 二.设备dpr
+@--device-dpr3: ~"(-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3)"; // 3倍屏
+@--device-dpr2: ~"(-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2)"; // 2倍屏
+
+
+// 三.动画
+// 1.线性动画曲线
+@--animation-bezier-1: cubic-bezier(.21,.67,.01,.99); // 先极快后极慢
+// 2.非线性动画插值
+@--animation-steps-1: steps(1); // 只播放关键帧
+@--animation-steps-2: steps(2); // 关键帧插值1
+
+
+// 四.资源目录
+@--resource-img1: '../../2020_May/img';

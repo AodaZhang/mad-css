@@ -17,13 +17,13 @@ module.exports = merge(commonConfig, {
   devtool: 'none',
   output: {
     publicPath: './',
-    filename: `${jsFolderName}[name].[contenthash:8].js`,
+    filename: `${jsFolderName}/[name].[contenthash:8].js`,
     path: distPath
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: `${cssFolderName}[name].[contenthash:8].css`,
-      chunkFilename: `${cssFolderName}[name].[contenthash:8].chunk.css`
+      filename: `${cssFolderName}/[name].[contenthash:8].css`,
+      chunkFilename: `${cssFolderName}/[name].[contenthash:8].chunk.css`
     }),
     new CompressionWebpackPlugin({
       filename: '[path].gz[query]',

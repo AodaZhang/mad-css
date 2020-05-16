@@ -1,9 +1,8 @@
 /*
  * @Description: less base mixin
  * @Author: AodaZhang
- * @Reference: http://csslab.cc/index.html
  * @Date: 2020-05-13 10:15:39
- * @LastEditTime: 2020-05-15 00:33:20
+ * @LastEditTime: 2020-05-16 00:23:33
  */
 
 // 一.布局相关
@@ -65,7 +64,22 @@
   }
 }
 
-// 5.flex布局容器：容器设为flex布局以后，子元素的float、clear、vertical-align属性将失效
+// 5.columns布局容器
+.col(@column-count: 3, @column-gap: 0, @column-width: auto, @column-rule-width: 0px, @column-rule-style: none, @column-rule-color: rgba(0, 0, 0, 1), @column-fill: auto) {
+  -webkit-columns: @column-width column-count;
+  columns: @column-width @column-count; // columns列宽/列数(auto | number)
+  columns-gap: @column-gap; // columns列间距(normal 1em | number)
+  columns-rule: @column-rule-width @column-rule-style @column-rule-color; // columns列边框宽度/样式/颜色
+  columns-fill: @column-fill; // columns列高度指定(auto本列内容决定 | balance内容最多的列决定)
+}
+
+// 5.columns布局元素
+.col-i(@column-span: none) {
+  -webkit-column-span: @column-span;
+  column-span: @column-span; // columns中某一列是否跨列(none | all)
+}
+
+// 6.flex布局容器：容器设为flex布局以后，子元素的float、clear、vertical-align属性将失效
 .fle(@flex-direction: row, @flex-wrap: wrap, @justify-content: center, @align-items: center, @align-content: stretch) {
   display: -webkit-flex;
   display: flex;
@@ -75,14 +89,14 @@
   align-content: @align-content; // flex-item多交叉轴对齐方式(flex-start | flex-end | center | space-between | space-around | stretch)
 }
 
-// 5.flex布局元素
+// 6.flex布局元素
 .fle-i(@flex-grow: 1, @flex-shrink: 1, @flex-basis: auto, @order: 1, @align-self: auto) {
   flex: @flex-grow @flex-shrink @flex-basis; // flex-item是否支持放大/缩小(0不支持 | 1支持)
   order: @order; // flex-item排序系数(小 -> 大)
   align-self: @align-self; // flex-item在交叉轴对齐方式(auto | flex-start | flex-end | center | baseline | stretch)
 }
 
-// 6.grid布局容器：容器设为网格布局以后，子元素的float、display: inline-block、display: table-cell、vertical-align、column-*等属性将失效
+// 7.grid布局容器：容器设为网格布局以后，子元素的float、display: inline-block、display: table-cell、vertical-align、column-*等属性将失效
 .gri(@columnWidth: 100px, @rowHeight: 100px, @grid-column-gap: 5px, @grid-row-gap: @grid-column-gap, @grid-auto-flow: row, @columns: auto-fill, @rows: auto-fill, @align-items: stretch, @justify-items: stretch, @align-content: stretch, @justify-content: stretch) {
   display: grid;
   grid-auto-flow: @grid-auto-flow; // 水平/垂直开始排列
@@ -93,7 +107,7 @@
   place-content: @align-content @justify-content; // grid-item内部填充方式(start | end | center | stretch)
 }
 
-// 6.grid布局元素
+// 7.grid布局元素
 .gri-i(@columnSpan: 1, @rowSpan: 1, @display: inline-grid, @align-self: auto, @justify-self: auto) {
   display: @display;
   grid-column: span @columnSpan / 1; // grid-item占几列
@@ -145,14 +159,14 @@
 }
 
 // 4.字体换行：单行省略号
-.fw(sig) {
+.fw() {
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important; // 空白处不换行
 }
 
 // 4.字体换行：多行文本省略号
-.fw(mul, @lines, @height: auto) when (@lines > 1) {
+.fw(@lines, @height: auto) when(isnumber(@lines)) and(@lines > 1) {
   display: -webkit-box; // 作为弹性伸缩盒显示
   -webkit-box-orient: vertical; // 设置或检索伸缩盒对象的子元素的排列方式
   -webkit-line-clamp: @lines; //设定行数，超出行数则省略，只webkit有效
@@ -163,21 +177,21 @@
   height: @height;
 }
 
-// 5.自定义字体：字体名、字体文件
+// 5.文本禁止被选中
+.fn() {
+  -webkit-user-select: none; // Chrome, Safari, Opera
+  -moz-user-select: none; // Firefox
+  -ms-user-select: none; // IE10
+  -khtml-user-select: none;
+  user-select: none;
+}
+
+// 6.自定义字体：字体名、字体文件
 .ff(@font-family, @src) {
   @font-face {
     font-family: @ff;
     src: url('@{src}');
   }
-}
-
-// 6.文本禁止被选中
-.fn() {
-  -webkit-user-select: none; // Chrome, Safari, Opera
-  -moz-user-select: none; // 火狐
-  -ms-user-select: none; // IE10
-  -khtml-user-select: none; // 早期浏览器
-  user-select: none;
 }
 
 
@@ -196,37 +210,24 @@
 }
 
 // 2.背景图片自适应：网络资源
-.ib(onl, @url, @background-size: cover) {
+.ib(onl, @url: '', @background-size: cover) {
   background-image: url('@{url}');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: @background-size;
 }
 
-// 3.根据dpr本地背景图片自适应
-.id(@baseUrl: '', @imgName: '', @imgExt: 'png', @background-size: cover) {
-  .ib(ofl, @baseUrl, @imgName, @imgExt, @background-size);
-
-  @media @--dpr2 {
-    .ib(ofl, @baseUrl, @imgName: '@{imgName}@2x', @imgExt, @background-size);
-  }
-
-  @media @--dpr3 {
-    .ib(ofl, @baseUrl, @imgName: '@{imgName}@3x', @imgExt, @background-size);
-  }
-}
-
 
 // 四.效果相关
-// 1.空元素处理：隐藏
-.em(non) {
+// 1.空元素处理：默认隐藏
+.em() {
   &:empty {
     display: none;
   }
 }
 
 // 1.空元素处理：填充文本
-.em(tex, @font-size: 16px, @line-height: @font-size, @color: gray, @content: '暂无') {
+.em(@content, @font-size: 16px, @line-height: @font-size, @color: gray) when(isstring(@content)) {
   &:empty::before {
     .fz(@font-size, @line-height);
     display: block;
@@ -236,55 +237,13 @@
 }
 
 // 2.边框
-.bo(nor, @border-color: rgba(50, 50, 50, 1), @border-width: 1px, @border-style: solid, @border-type: border) when(iskeyword(@border-type)) {
+.bo(@border-color: rgba(50, 50, 50, 1), @border-width: 1px, @border-style: solid, @border-type: border) when(iskeyword(@border-type)) {
   @{border-type}: @border-width @border-style @border-color;
 }
 
-// 2.边框：等边三角
-.bo(tri, @size: 100px, @color: rgba(50, 50, 50, 1)) when(isnumber(@size)) {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  .bo(nor, @color, @size, @border-type: border-bottom);
-  // 勾股计算等边三角形1/2边长
-  .bo(nor, transparent, @size / 1.7, @border-type: border-left);
-  .bo(nor, transparent, @size / 1.7, @border-type: border-right);
-}
-
-// 2.边框：移动端1px边框，兼容安卓和iOS低版本
-.bo(opx, @pad-size: 0px, @border-color: rgba(50, 50, 50, 1)) when(isnumber(@pad-size)) {
-  position: relative;
-
-  &::after {
-    .bo(nor, @border-color, @border-type: border-bottom);
-    .pe();
-    display: block;
-    content: '';
-    position: absolute;
-    left: @pad-size;
-    right: @pad-size;
-    bottom: 0;
-
-    @media @--dpr2 {
-      transform: scaleY(0.33);
-    }
-
-    @media @--dpr3 {
-      transform: scaleY(0.5);
-    }
-  }
-}
-
 // 3.倒角
-.br(nor, @border-radius: 10px, @border-radius-type: border-radius) when(iskeyword(@border-radius-type)) {
+.br(@border-radius: 10px, @border-radius-type: border-radius) when(iskeyword(@border-radius-type)) {
   @{border-radius-type}: @border-radius;
-}
-
-// 4.倒角：圆形，会影响容器尺寸
-.br(clr, @size: 100px) {
-  width: @size;
-  height: @size;
-  .br(nor, 50%);
 }
 
 // 4.阴影：外投影
@@ -297,24 +256,14 @@
   box-shadow: @x @y @blur @extend @color inset;
 }
 
-// 5.裁切
+// 5.裁切：路径，不会改变容器尺寸
 .cp(nor, @clip-path: inset(10px 10px)) {
   clip-path: @clip-path;
 }
 
-// 5.裁切：svg
-.cp(svg, @id: '#clipPath') {
+// 5.裁切：svg，不会改变容器尺寸
+.cp(svg, @id: '#clip-path') {
   clip-path: url('@{id}');
-}
-
-// 5.裁切：矩形
-.cp(rec, @x: 10px, @y: 10px) {
-  .cp(nor, inset(@x @y));
-}
-
-// 5.裁切：圆形，不会改变容器的尺寸，适合做动画
-.cp(clr, @radius: 50%, @cenX: center, @cenY: center) {
-  .cp(nor, circle(@radius at @cenX @cenY));
 }
 
 // 6.鼠标手势：系统
@@ -329,7 +278,7 @@
 }
 
 // 6.鼠标手势：网络资源
-.cu(nol, @url, @cursor: default) when(iskeyword(@cursor)) {
+.cu(onl, @url: '', @cursor: default) when(iskeyword(@cursor)) {
   cursor: url('@{url}'),
   @cursor;
 }
@@ -435,7 +384,7 @@
   -webkit-animation-direction: @direction;
   -webkit-animation-fill-mode: @fill-mode;
   -webkit-animation-play-state: @play-state;
-  animation: @name @duration @timing-function @delay;
+  animation: @name @duration @timing-function @delay; // 动画执行曲线(ease线性 | step(1)非线性)
   animation-iteration-count: @iteration-count; // 动画执行次数(number次数 | infinite无限次)
   animation-direction: @direction; // 动画执行顺序(normal正向 | reverse反向 | alternate先正向后反向 | alternate-reverse先反向后正向)
   animation-fill-mode: @fill-mode; // 动画执行结束样式(none无 | backwards动画起始帧样式 | forwards动画结束帧样式)

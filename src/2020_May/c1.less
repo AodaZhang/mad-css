@@ -1,0 +1,73 @@
+/*
+ * @Description: c1镜头动画样式
+ * @Author: AodaZhang
+ * @Date: 2020-05-15 11:30:19
+ * @LastEditTime: 2020-05-16 12:01:05
+ */
+
+@--c1-light: 35%;
+@--c1-color1: rgb(255, 255, 68);
+@--c1-color2: rgb(87, 255, 255);
+@--c1-color3: rgb(255, 255, 26);
+@--c1-color4: rgb(80, 255, 0);
+@--c1-color5: rgb(250, 50, 250);
+@--c1-grass-color: rgba(173, 173, 173, 0.15);
+@--c1-font-color: white;
+@--c1-font-scale1: 10;
+@--c1-font-scale2: 3;
+@--c1-font-scale3: 2;
+@--c1-font-scale4: 1;
+@--c1-font-scale5: 0.75;
+
+
+// 1.颜色变化
+.c1-ani(color) {
+  .keyf(c1-color, @--c1-duration, @timing-function: @--animation-steps-1, @delay: @--c1-delay);
+
+  @keyframes c1-color {
+    0% {
+      visibility: visible;
+      .lg(bic, lighten(@--c1-color1, @--c1-light), @--c1-color1, 0deg);
+    }
+
+    20% {
+      .lg(bic, lighten(@--c1-color2, @--c1-light), @--c1-color2);
+    }
+
+    40% {
+      .lg(bic, @--c1-color3, @--c1-color4);
+    }
+
+    60% {
+      .lg(bic, @--c1-color5, lighten(@--c1-color5, @--c1-light), 0deg);
+    }
+  }
+}
+
+// 2.字体变化
+.c1-ani(font) {
+  .keyf(c1-font, @--c1-duration, @timing-function: @--animation-steps-1, @delay: @--c1-delay);
+
+  @keyframes c1-font {
+    0% {
+      transform: scale(@--c1-font-scale1);
+    }
+
+    20% {
+      transform: scale(@--c1-font-scale2);
+    }
+
+    40% {
+      transform: scale(@--c1-font-scale3);
+    }
+
+    60% {
+      transform: scale(@--c1-font-scale4);
+    }
+
+    80% {
+      visibility: hidden;
+      transform: scale(@--c1-font-scale5);
+    }
+  }
+}

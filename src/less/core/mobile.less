@@ -1,0 +1,43 @@
+/*
+ * @Description: less mobile mixin
+ * @Author: AodaZhang
+ * @Date: 2020-05-15 13:39:29
+ * @LastEditTime: 2020-05-15 14:00:29
+ */
+
+// 1.根据dpr本地背景图片自适应
+.mobile(imgDpr, @baseUrl: '', @imgName: '', @imgExt: 'png', @background-size: cover) {
+  .ib(ofl, @baseUrl, @imgName, @imgExt, @background-size);
+
+  @media @--device-dpr2 {
+    .ib(ofl, @baseUrl, @imgName: '@{imgName}@2x', @imgExt, @background-size);
+  }
+
+  @media @--device-dpr3 {
+    .ib(ofl, @baseUrl, @imgName: '@{imgName}@3x', @imgExt, @background-size);
+  }
+}
+
+// 2.移动端1px边框，兼容安卓和iOS低版本
+.mobile(px1, @pad-size: 0px, @border-color: rgba(50, 50, 50, 1)) when(isnumber(@pad-size)) {
+  position: relative;
+
+  &::after {
+    .bo(nor, @border-color, @border-type: border-bottom);
+    .pe();
+    display: block;
+    content: '';
+    position: absolute;
+    left: @pad-size;
+    right: @pad-size;
+    bottom: 0;
+
+    @media @--device-dpr2 {
+      transform: scaleY(0.33);
+    }
+
+    @media @--device-dpr3 {
+      transform: scaleY(0.5);
+    }
+  }
+}

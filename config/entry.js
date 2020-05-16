@@ -2,19 +2,19 @@
  * @Description: webpack配置工具
  * @Author: AodaZhang
  * @Date: 2020-05-12 16:01:19
- * @LastEditTime: 2020-05-12 22:55:22
+ * @LastEditTime: 2020-05-15 14:10:59
  */
 const path = require('path')
 const glob = require('glob')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const entryFileName = 'index' // 默认入口ts、html文件名
+const entryFileName = 'index' // 默认入口ts、模版html文件名
 const srcPath = path.resolve(__dirname, '../src') // 打包入口路径
 const distPath = path.resolve(__dirname, '../dist') // 打包输出路径
-const jsFolderName = 'js/' // js文件打包输出目录
-const cssFolderName = 'css/' // css文件打包输出目录
-const imageFolderName = 'image/' // 图片文件打包输出目录
-const fontFolderName = 'font/' // font文件打包输出目录
+const jsFolderName = 'js' // js文件打包输出目录
+const cssFolderName = 'css' // css文件打包输出目录
+const imageFolderName = 'image' // 图片文件打包输出目录
+const fontFolderName = 'font' // font文件打包输出目录
 
 /**
  * @description: 多页应用入口文件处理函数
@@ -36,7 +36,7 @@ const filePathProcess = () => {
     entry[entryKey] = entryPath
     // 5.获取html模版路径
     const templatePath = `${dirname}/${entryFileName}.html`
-    // 6.Html模版插件配置
+    // 6.html模版插件配置
     htmlWebpackPlugins.push(new HtmlWebpackPlugin({
       template: templatePath,
       filename: `${entryKey}.html`,
