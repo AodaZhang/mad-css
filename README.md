@@ -13,9 +13,8 @@
   + [《Sweet Sugar》](https://www.bilibili.com/video/BV14s411o71r)
   + [base_image](https://www.bilibili.com/video/BV1xx411w7xj)
   + [在盛夏等待 ED](https://www.bilibili.com/video/BV1js411f7q9)
-
 + 更新形式：每个月模仿一个mad的动效，大概 :)
-
++ 适配：建议pc端查看获取最佳体验
 
 
 
