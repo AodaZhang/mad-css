@@ -6,7 +6,7 @@
 
 + MAD：二次元同人创作视频，一般分为偏向剪辑的AMV和偏向AE动效的静止系MAD，贴个我自己作品和一些很喜欢的作品吧，排名不分先后，献丑了。
   + [我的B站处女作《赫萝之空》](https://www.bilibili.com/video/BV1zs411f7Sc) 
-  + [樱华月 贰](https://www.bilibili.com/video/BV11s411Z7LX)
+  + [樱华月 贰](https://www.bilibili.com/video/BV11s411Z7LX/?p=2)
   + [B站2013年拜年祭《My color》](https://www.bilibili.com/video/BV1Kx411c7p8?t=42)
   + [14人合作PV 《Twinkle》](https://www.bilibili.com/video/BV1vx411F7p1)
   + [华语PV合作祭](https://www.bilibili.com/video/BV1Rs411o75d)
