@@ -2,7 +2,7 @@
  * @Description: mycolor主样式
  * @Author: AodaZhang
  * @Date: 2020-05-12 18:14:34
- * @LastEditTime: 2020-05-16 12:20:56
+ * @LastEditTime: 2020-05-16 18:45:12
  */
 @import '../less/index.less';
 @import './transition.less';
@@ -11,6 +11,11 @@
 @import './c1.less';
 @import './c2.less';
 @import './c3.less';
+@import './c4.less';
+@import './c5.less';
+@import './c6.less';
+@import './c7.less';
+@import './c8.less';
 
 // 动画执行参数
 @--c1-delay: 0.5s; // 镜头1延迟时间
@@ -21,13 +26,30 @@
 @--c2-duration: 3.5s; // 镜头2执行时间
 @--c3-delay: @--c2-delay + @--c2-duration - 1.0s; // 镜头3延迟时间
 @--c3-duration: 5s; // 镜头3执行时间
+@--c4-delay: @--c3-delay + @--c3-duration - 0.5s; // 镜头4延迟时间
+@--c4-duration: 0.5s; // 镜头4执行时间
+@--c5-delay: @--c4-delay + @--c4-duration; // 镜头5延迟时间
+@--c5-duration: 0.5s; // 镜头5执行时间
+@--c6-delay: @--c5-delay + @--c5-duration - 0.5s; // 镜头6延迟时间
+@--c6-duration: 3s; // 镜头6执行时间
+@--tran2-delay: @--c6-delay + @--c6-duration - 0.35s; // 转场2延迟时间
+@--tran2-duration: 1s; // 转场2执行时间
+@--c7-delay: @--tran2-delay; // 镜头7延迟时间
+@--c7-duration: 1.4s; // 镜头7执行时间
+@--c8-delay: @--c7-delay + @--c7-duration + 2s; // 镜头8延迟时间
+@--c8-duration: 1s; // 镜头8执行时间
 
 // 层数
 @--transition-z: 10;
-@--light-z: 5;
+@--light-z: 6;
 @--c1-z: 1;
 @--c2-z: 1;
-@--c3-z: 2;
+@--c3-z: 5;
+@--c4-z: 4;
+@--c5-z: 3;
+@--c6-z: 2;
+@--c7-z: 1;
+@--c8-z: 11;
 
 
 html {
@@ -148,6 +170,238 @@ body {
       top: 46.5%;
       padding: 0.05rem 0.1rem;
       background: @--c3-grass-color;
+    }
+  }
+
+  .c4 {
+    .c4-ani(main);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transform: translateZ(0);
+    z-index: @--c4-z;
+    visibility: hidden;
+
+    &__bg {
+      .c4-ani(bg);
+      .fi(sep, 10%);
+    }
+
+    .list3();
+  }
+
+  .c5 {
+    .c5-ani(main);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transform: translateZ(0);
+    z-index: @--c5-z;
+    visibility: hidden;
+
+    &__text {
+      .lg(bic, @--c5-color10, @--c5-color11);
+      .cen(fle);
+      .c5-ani(bg);
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-50%);
+
+      p {
+        .c5-ani(font);
+        .fz(0.2rem, @text-align: center);
+        .fc(@--c5-font-color, @text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1));
+      }
+    }
+
+    &__bg {
+      height: 100%;
+
+      &__top {
+        .bs(nor);
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(90deg,
+            @--c5-color1 0, lighten(@--c5-color1, 15%) 35%,
+            @--c5-color2 36%, lighten(@--c5-color2, 15%) 80%,
+            @--c5-color3 81%, lighten(@--c5-color3, 15%) 100%,
+          );
+      }
+
+      &__bottom {
+        .bs(nor);
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(90deg,
+            @--c5-color4 0, lighten(@--c5-color4, 15%) 9%,
+            @--c5-color5 10%, @--c5-color6 52%,
+            @--c5-color7 53%, lighten(@--c5-color7, 15%) 79%,
+            @--c5-color8 80%, lighten(@--c5-color8, 15%) 91%,
+            @--c5-color9 92%, lighten(@--c5-color9, 15%) 100%,
+          );
+      }
+    }
+  }
+
+  .c6 {
+    .c6-ani(main);
+    .cen(fle);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transform: translateZ(0);
+    z-index: @--c6-z;
+    visibility: hidden;
+
+    &__bg {
+      .c6-ani(bg);
+      .lg(bic, @--c6-color1, @--c6-color2);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: scale(1.25);
+
+      &__ge1 {
+        .triangle(bo, 2rem, @--c6-color5);
+        position: absolute;
+        left: 10%;
+        bottom: 10%;
+        transform: rotate(90deg);
+      }
+
+      &__ge2 {
+        .triangle(bo, 3rem, @--c6-color6);
+        position: absolute;
+        top: 5%;
+        right: -5%;
+        transform: rotate(45deg);
+      }
+
+      &__ge3 {
+        .circle(br, 1rem);
+        background: @--c6-color3;
+        position: absolute;
+        top: 20%;
+        left: 30%;
+      }
+
+      &__ge4 {
+        .circle(br, 2.5rem);
+        background: @--c6-color4;
+        position: absolute;
+        top: -10%;
+        left: -10%;
+      }
+
+      &__ge5 {
+        .circle(br, 1.5rem);
+        background: @--c6-color7;
+        position: absolute;
+        bottom: -5%;
+        right: 30%;
+      }
+    }
+
+    &__text {
+      .c6-ani(font);
+      .fz(0.2rem, @text-align: center);
+      .fc(@--c6-font-color, @text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1));
+      .br(3px);
+      position: relative;
+      padding: 0.05rem 0.8rem;
+      background: @--c3-grass-color;
+    }
+  }
+
+  .c7 {
+    .c7-ani(main);
+    .cen(fle);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transform: translateZ(0);
+    z-index: @--c7-z;
+    visibility: hidden;
+
+    &__text {
+      .fz(0.5rem, @text-align: center);
+      .fc(@--c7-font-color1, @text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1));
+      .br(3px);
+      .c7-ani(sc);
+    }
+  }
+
+  .c8 {
+    .c8-ani(main);
+    .fle(column);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0F2027;
+    transform: translateZ(0);
+    z-index: @--c8-z;
+    visibility: hidden;
+
+    &__title {
+      .fz(0.5rem, @text-align: center);
+      .fc(@--c7-font-color1);
+      margin-bottom: 0.2rem;
+    }
+
+    &__author {
+      .fz(0.2rem, @text-align: center);
+      .fc(@--c7-font-color1);
+      margin-bottom: 1rem;
+    }
+
+    &__button {
+      .fle();
+
+      &__wrapper {
+        @height: 0.7rem;
+        .fz(0.3rem, @height, @text-align: center);
+        .fn();
+        .cu(nor);
+        .tran(color);
+        width: 1.4rem;
+        height: @height;
+        padding: 2px;
+
+        &:nth-child(1) {
+          .fc(@--c8-font-color1, @--c8-font-color2);
+          .lg(bic, @--c8-color1, @--c8-color2);
+          margin-right: 1rem;
+        }
+
+        &:nth-child(2) {
+          .fc(@--c8-font-color1, @--c8-font-color3);
+          .lg(bic, @--c8-color3, @--c8-color4);
+        }
+
+        div {
+          background: #0F2027;
+        }
+      }
     }
   }
 }

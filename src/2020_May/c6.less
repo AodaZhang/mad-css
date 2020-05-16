@@ -1,0 +1,65 @@
+/*
+ * @Description: c6镜头动画样式
+ * @Author: AodaZhang
+ * @Date: 2020-05-16 15:21:39
+ * @LastEditTime: 2020-05-16 16:10:20
+ */
+
+@--c6-font-color: white;
+@--c6-grass-color: rgba(140, 159, 170, 0.404);
+@--c6-color1: rgb(222, 237, 255);
+@--c6-color2: rgb(237, 228, 255);
+@--c6-color3: rgb(156, 219, 255);
+@--c6-color4: rgb(178, 255, 123);
+@--c6-color5: rgb(255, 255, 114);
+@--c6-color6: rgb(30, 91, 160);
+@--c6-color7: rgb(198, 100, 90);
+
+// 1.整体变化
+.c6-ani(main) {
+  .keyf(c6-main, @--c6-duration, @timing-function: ease, @delay: @--c6-delay);
+
+  @keyframes c6-main {
+    0% {
+      visibility: visible;
+    }
+
+    90% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
+// 2.背景缩放
+.c6-ani(bg) {
+  .keyf(c6-bg, @--c6-duration, @timing-function: linear, @delay: @--c6-delay);
+
+  @keyframes c6-bg {
+    from {
+      transform: scale(1.25);
+    }
+
+    to {
+      transform: scale(1);
+    }
+  }
+}
+
+// 3.字体padding
+.c6-ani(font) {
+  .keyf(c6-font, @--c6-duration - 2.5s, @timing-function: ease-out, @delay: @--c6-delay + 0.5s);
+
+  @keyframes c6-font {
+    from {
+      padding: 0.05rem 0.8rem;
+    }
+
+    to {
+      padding: 0.05rem 0.1rem;
+    }
+  }
+}

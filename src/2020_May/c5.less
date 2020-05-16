@@ -1,0 +1,68 @@
+/*
+ * @Description: c5镜头动画样式
+ * @Author: AodaZhang
+ * @Date: 2020-05-16 14:35:06
+ * @LastEditTime: 2020-05-16 16:02:42
+ */
+
+@--c5-font-color: black;
+@--c5-color1: rgb(209, 254, 3);
+@--c5-color2: rgb(207, 58, 11);
+@--c5-color3: rgb(78, 252, 0);
+@--c5-color4: rgb(198, 100, 90);
+@--c5-color5: rgb(106, 96, 169);
+@--c5-color6: rgb(78, 184, 133);
+@--c5-color7: rgb(63, 177, 74);
+@--c5-color8: rgb(182, 112, 43);
+@--c5-color9: rgb(30, 91, 160);
+@--c5-color10: rgb(222, 237, 255);
+@--c5-color11: rgb(255, 228, 251);
+
+// 1.整体变化
+.c5-ani(main) {
+  .keyf(c5-main, @--c5-duration, @timing-function: ease, @delay: @--c5-delay);
+
+  @keyframes c5-main {
+    0% {
+      visibility: visible;
+    }
+
+    90% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
+// 2.背景缩放
+.c5-ani(bg) {
+  .keyf(c5-bg, @--c5-duration + 0.1s, @timing-function: ease-out, @delay: @--c5-delay);
+
+  @keyframes c5-bg {
+    from {
+      height: 100%;
+    }
+
+    to {
+      height: 50%;
+    }
+  }
+}
+
+// 3.文字位移
+.c5-ani(font) {
+  .keyf(c5-font, @--c5-duration, @timing-function: ease, @delay: @--c5-delay);
+
+  @keyframes c5-font {
+    from {
+      transform: translateX(-10%);
+    }
+
+    to {
+      transform: translateX(0);
+    }
+  }
+}

@@ -1,0 +1,35 @@
+/*
+ * @Description: c4镜头动画样式
+ * @Author: AodaZhang
+ * @Date: 2020-05-16 14:04:06
+ * @LastEditTime: 2020-05-16 14:16:46
+ */
+
+@--c4-font-color: white;
+@--c4-grass-color: rgba(140, 159, 170, 0.404);
+
+// 1.整体变化
+.c4-ani(main) {
+  .keyf(c4-main, @--c4-duration, @timing-function: ease, @delay: @--c4-delay);
+
+  @keyframes c4-main {
+    0% {
+      visibility: visible;
+    }
+  }
+}
+
+// 2.背景位移
+.c4-ani(bg) {
+  .keyf(c4-bg, @--c4-duration, @timing-function: linear, @delay: @--c4-delay);
+
+  @keyframes c4-bg {
+    from {
+      transform: translate(20%, -16%);
+    }
+
+    to {
+      transform: translate(30%, -16%);
+    }
+  }
+}

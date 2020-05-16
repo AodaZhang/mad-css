@@ -2,24 +2,29 @@
  * @Description: 列表背景样式
  * @Author: AodaZhang
  * @Date: 2020-05-16 10:19:53
- * @LastEditTime: 2020-05-16 12:25:07
+ * @LastEditTime: 2020-05-16 16:09:05
  */
 
-@--list1-light: 35%; // 颜色增亮
-@--list1-hue: 50; // 色相偏转
-@--list1-angle: 60deg; // 渐变角度
-@--list1-count: 8; // 列表数量
-@--list1-item-count: 4; // 列表项数量
+@--list1-light: 35%; // 列表1颜色增亮
+@--list1-hue: 50; // 列表1色相偏转
+@--list1-angle: 60deg; // 列表1渐变角度
+@--list1-count: 8; // 列表1数量
+@--list1-item-count: 4; // 列表1 item数量
 @--list1-color1: rgb(40, 205, 255);
 @--list1-color2: rgb(55, 58, 255);
 @--list1-color3: rgb(93, 255, 29);
 @--list1-color4: rgb(255, 55, 205);
 @--list2-light: 10%; // 列表2颜色增亮
-@--list2-item-count: 4; // 列表2数量
+@--list2-item-count: 4; // 列表2 item数量
 @--list2-color1: rgb(255, 92, 233);
 @--list2-color2: rgb(253, 254, 121);
 @--list2-color3: rgb(177, 252, 122);
 @--list2-color4: rgb(187, 234, 255);
+@--list3-light: 10%; // 列表3颜色增亮
+@--list3-count: 3; // 列表3数量
+@--list3-color1: rgb(156, 219, 255);
+@--list3-color2: rgb(178, 255, 123);
+@--list3-color3: rgb(255, 255, 114);
 
 // 列表1 mixin
 .item1(@color, @n: 1) when(@n <=@--list1-item-count) {
@@ -133,4 +138,43 @@
       width: 70%;
     }
   }
+}
+
+// 列表3 mixin
+.item3() {
+  &__item {
+    .fle-i(0, 0);
+    width: 6rem;
+    height: 3rem;
+    background: linear-gradient(90deg,
+        lighten(@--list3-color1, @--list3-light) 0, @--list3-color1 70%,
+        @--list3-color2 71%, @--list3-color2 90%,
+        @--list3-color3 91%, @--list3-color3 100%, );
+
+    &::after {
+      .effect(glass, 2.8rem, 0.2rem, @color: @--c4-grass-color);
+      .fz(0.2rem, @text-align: center);
+      .fc(@--c4-font-color);
+      content: 'いつもより混んだ電車で';
+      display: block;
+      position: relative;
+      top: 46.5%;
+      left: 10%;
+    }
+  }
+}
+
+.list3(@n: 1) when(@n <=@--list3-count) {
+  &__list@{n} {
+    .fle(@flex-wrap: nowrap);
+    .item3();
+    width: 150%;
+    height: 3rem;
+  }
+
+  &__list@{n} when(@n =2) {
+    transform: translateX(-3rem);
+  }
+
+  .list3(@n + 1);
 }

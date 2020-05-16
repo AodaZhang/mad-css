@@ -2,8 +2,6 @@
  * @Description:
  * @Author: AodaZhang
  * @Date: 2020-05-12 12:30:16
- * @LastEditTime: 2020-05-12 14:44:29
+ * @LastEditTime: 2020-05-16 18:34:49
  */
-import './style/index.less'
-
-module.hot && module.hot.accept('./style/index.less', () => {})
+import './index.less'

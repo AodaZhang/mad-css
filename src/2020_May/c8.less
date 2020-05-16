@@ -1,0 +1,31 @@
+/*
+ * @Description: c8镜头动画样式
+ * @Author: AodaZhang
+ * @Date: 2020-05-16 17:33:20
+ * @LastEditTime: 2020-05-16 18:31:31
+ */
+
+@--c8-font-color1: white;
+@--c8-font-color2: rgb(47, 248, 255);
+@--c8-font-color3: rgb(224, 47, 255);
+@--c8-color1: rgb(82, 252, 176);
+@--c8-color2: rgb(67, 181, 255);
+@--c8-color3: rgb(231, 41, 170);
+@--c8-color4: rgb(26, 28, 213);
+
+// 1.整体变化
+.c8-ani(main) {
+  .keyf(c8-main, @--c8-duration, @timing-function: ease, @delay: @--c8-delay);
+
+  @keyframes c8-main {
+    0% {
+      visibility: visible;
+      opacity: 0;
+    }
+
+    100% {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
