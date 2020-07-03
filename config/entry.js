@@ -2,7 +2,7 @@
  * @Description: webpack配置工具
  * @Author: AodaZhang
  * @Date: 2020-05-12 16:01:19
- * @LastEditTime: 2020-05-15 14:10:59
+ * @LastEditTime: 2020-07-03 21:14:05
  */
 const path = require('path')
 const glob = require('glob')
@@ -51,11 +51,11 @@ const filePathProcess = () => {
 }
 
 // 执行多页处理函数，返回多页entry和HtmlWebpackPlugin
-const entryArray = filePathProcess()
+const [entry, htmlWebpackPlugins] = filePathProcess()
 
 module.exports = {
-  entry: entryArray[0],
-  htmlWebpackPlugins: entryArray[1],
+  entry,
+  htmlWebpackPlugins,
   distPath,
   jsFolderName,
   cssFolderName,
