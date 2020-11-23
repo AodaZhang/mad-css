@@ -2,30 +2,35 @@
  * @Description: less effect mixin
  * @Author: AodaZhang
  * @Date: 2020-05-15 13:21:00
- * @LastEditTime: 2020-05-15 17:01:09
+ * @LastEditTime: 2020-07-29 18:30:25
  */
 
-// 1.毛玻璃
-.effect(glass, @width: 100px, @height: @width, @baseUrl: '', @imgName: '', @imgExt: 'png', @color: rgba(0, 0, 0, 0.2), @border-radius: 2px) {
-  width: @width;
-  height: @height;
-  border-radius: @border-radius;
-  background: @color;
+#effect {
 
-  &::before {
-    .ib(ofl, @baseUrl, @imgName, @imgExt);
-    .fi(blu, 5px);
-    content: '';
-    z-index: -1;
-    position: absolute;
-    left: 0;
+  // 1.毛玻璃
+  .glass(@width: 100px, @height: @width, @baseUrl: '', @imageName: '', @imageExtension: 'png', @backgroundColor: rgba(0, 0, 0, 0.2), @borderRadius: 2px) {
+    position: relative;
     width: @width;
     height: @height;
-    border-radius: @border-radius;
-  }
-}
+    border-radius: @borderRadius;
+    background-color: @backgroundColor;
 
-// 2.模拟点光源
-.effect(point, @x, @y, @icolor: white) {
-  background: radial-gradient(circle farthest-corner at @x @y, @icolor 0%, transparent 60%);
+    &::before {
+      .backgroundImage(local, @baseUrl, @imageName, @imageExtension: @imageExtension);
+      .filter(blur, 5px);
+      content: '';
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: @width;
+      height: @height;
+      border-radius: @borderRadius;
+    }
+  }
+
+  // 2.点光源
+  .pointLight(@x: center, @y: @x, @insideColor: rgb(255, 195, 0)) {
+    background-image: radial-gradient(circle farthest-corner at @x @y, @insideColor 0%, transparent 60%);
+  }
 }

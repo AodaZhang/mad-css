@@ -1,0 +1,96 @@
+/*
+ * @Description: less text mixin
+ * @Author: AodaZhang
+ * @Date: 2020-05-15 09:45:16
+ * @LastEditTime: 2020-07-30 16:28:22
+ */
+
+#text {
+
+  // 一.样式
+  // 1.渐变色背景文字
+  .colourful(linearGradient, @leftColor: #ffa751, @rightColor: #ffe259) {
+    .linearGradient(two, @leftColor, @rightColor, 90deg);
+    .fontColor(transparent);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  // 2.图片背景文字
+  .colorful(image, @url: '') {
+    .backgroundImage(online, @url);
+    .fontColor(transparent);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  // 二.动画
+  // 1.hover改变字色+背景色：鼠标悬浮时(pc) | 手指点击后(mobile)
+  .animate(hover, @color: rgb(255, 195, 0), @backgroundColor: transparent) when (iscolor(@color)) and (iscolor(@backgroundColor)) {
+    .transition(color, 0.2s, ease-in-out, 0s);
+    .transition(background-color, 0.2s, ease-in-out, 0s);
+    .activeColor(color, @color);
+    .activeColor(background-color, @backgroundColor);
+  }
+
+  // 2.active改变字色+背景色：鼠标点击时(pc) | 手指点击时(mobile)
+  .animate(active, @color: rgb(150, 150, 150), @backgroundColor: transparent) when (iscolor(@color)) and (iscolor(@backgroundColor)) {
+    .transition(color, 0.1s, ease, 0s);
+    .transition(background-color, 0.1s, ease, 0s);
+    .activeColor(color, @color);
+    .activeColor(background-color, @backgroundColor);
+  }
+
+  // 3.抖音故障文字效果
+  .animate(fault, @content: '', @frontColor: #74fcfd, @backColor: #ea3448, @backgroundColor: white) {
+    // 故障前景文字
+    .fontColor(@frontColor);
+    #keyframes>.fault(front);
+    .animation(@animationId, 0.5s, @iterationCount: infinite);
+    position: relative;
+    z-index: 0;
+    background-color: transparent;
+
+    // 故障背景文字
+    &::after {
+      .fontColor(@backColor);
+      .mixBlendMode(lighten);
+      #keyframes>.fault(back);
+      .animation(@animationId, 0.35s, @iterationCount: infinite);
+      content: @content;
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: translate(1px, 2px);
+    }
+
+    // 故障线
+    &::before {
+      #keyframes>.fault(line);
+      .animation(@animationId, @iterationCount: infinite);
+      content: '';
+      position: absolute;
+      z-index: 2;
+      top: 30%;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background-color: @backgroundColor;
+    }
+  }
+
+  // 4.霓虹灯文字效果（文字辉光）
+  .animate(neon, @color: #ffdcf0, @turnOnDuration: 1.5s, @twinkleDuration: 3s) when(iscolor(@color)) {
+    .fontColor(@color, 0 0 10px @color);
+    .fontColor(@color, 0 0 24px darken(@color, 30%));
+    .fontColor(@color, -2px 2px 16px darken(@color, 30%));
+    .fontColor(@color, 2px 1px 16px darken(@color, 30%));
+    #keyframes>.neon(turnOn, @color);
+    .animation(neonTurnOn, @turnOnDuration);
+    #keyframes>.neon(twinkle);
+    .animation(neonTwinkle, @twinkleDuration, linear, @iterationCount: infinite);
+  }
+}

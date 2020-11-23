@@ -2,36 +2,40 @@
  * @Description: less shape mixin
  * @Author: AodaZhang
  * @Date: 2020-05-15 09:45:49
- * @LastEditTime: 2020-05-16 15:48:40
+ * @LastEditTime: 2020-07-29 16:13:31
  */
 
-// 一.三角型
-// 1.border实现
-.triangle(bo, @size: 100px, @color: rgba(50, 50, 50, 1)) {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  .bo(@color, @size, @border-type: border-bottom);
-  // 勾股计算等边三角形1/2边长
-  .bo(transparent, @size / 1.7, @border-type: border-left);
-  .bo(transparent, @size / 1.7, @border-type: border-right);
-}
+#shape {
 
-// 二.圆形
-// 1.border-radius实现：会改变容器尺寸
-.circle(br, @size: 100px) {
-  width: @size;
-  height: @size;
-  .br(50%);
-}
+  // 一.三角型
+  // 1.border实现
+  .triangle(border, @size: 100px, @color: rgba(50, 50, 50, 1)) {
+    .border(@color, @size, @borderType: border-bottom);
+    // 勾股计算等边三角形1/2边长
+    .border(transparent, @size / 1.7, @borderType: border-left);
+    .border(transparent, @size / 1.7, @borderType: border-right);
+    display: inline-block;
+    width: 0;
+    height: 0;
+  }
 
-// 2.clip-path实现：不会改变容器尺寸
-.circle(cp, @radius: 50%, @cenX: center, @cenY: center) {
-  .cp(nor, circle(@radius at @cenX @cenY));
-}
+  // 二.圆形
+  // 1.border-radius实现：会改变容器尺寸
+  .circle(borderRadius, @size: 100px) {
+    .borderRadius(50%);
+    display: inline-block;
+    width: @size;
+    height: @size;
+  }
 
-// 三.矩形
-// 1.clip-path实现
-.rectangle(cp, @x: 10px, @y: @x) {
-  .cp(nor, inset(@x @y));
+  // 2.clip-path实现：不会改变容器尺寸
+  .circle(clipPath, @radius: 50%, @cenX: center, @cenY: center) {
+    .clipPath(normal, circle(@radius at @cenX @cenY));
+  }
+
+  // 三.矩形
+  // 1.clip-path实现
+  .rectangle(clipPath, @x: 20px, @y: @x) {
+    .clipPath(normal, inset(@x @y));
+  }
 }

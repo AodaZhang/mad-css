@@ -2,12 +2,12 @@
  * @Description: less base mixin
  * @Author: AodaZhang
  * @Date: 2020-05-13 10:15:39
- * @LastEditTime: 2020-07-03 21:16:06
+ * @LastEditTime: 2020-07-30 15:57:26
  */
 
 // 一.布局相关
 // 1.清除浮动
-.clf(@clear: both) {
+.clearFloat(@clear: both) {
   *zoom: 1;
 
   &:after {
@@ -19,21 +19,21 @@
   }
 }
 
+// 2.垂直居中：flex实现
+.center(flex) {
+  .flex(@justifyContent: center, @alignContent: center);
+}
+
 // 2.垂直居中：absolute实现
-.cen(pos) {
+.center(position) {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-// 2.垂直居中：flex实现
-.cen(fle) {
-  .fle(@align-content: center);
-}
-
 // 2.垂直居中：table-cell实现
-.cen(tab, @selector) {
+.center(tableCell, @selector) {
   display: table-cell;
   vertical-align: middle;
 
@@ -43,8 +43,8 @@
 }
 
 // 3.float布局
-.flo(@selector, @float: left) {
-  .clf();
+.float(@selector, @float: left) {
+  .clearFloat();
 
   &>.@{selector} {
     float: @float;
@@ -52,121 +52,103 @@
 }
 
 // 4.inline-block布局
-.inl(@selector, @font-size: 1rem) {
+.inlineBlock(@selector, @fontSize: 1rem) {
   display: inline-block;
   font-size: 0;
   vertical-align: middle;
-  text-align: center;
+  text-align: start;
 
   &>.@{selector} {
     display: inline-block;
-    font-size: @font-size;
+    font-size: @fontSize;
   }
 }
 
 // 5.columns布局容器
-.col(@column-count: 3, @column-gap: 0, @column-width: auto, @column-rule-width: 0px, @column-rule-style: none, @column-rule-color: rgba(0, 0, 0, 1), @column-fill: auto) {
-  -webkit-columns: @column-width column-count;
-  columns: @column-width @column-count; // columns列宽/列数(auto | number)
-  columns-gap: @column-gap; // columns列间距(normal 1em | number)
-  columns-rule: @column-rule-width @column-rule-style @column-rule-color; // columns列边框宽度/样式/颜色
-  columns-fill: @column-fill; // columns列高度指定(auto本列内容决定 | balance内容最多的列决定)
+.columns(@columnCount: 3, @columnGap: 0, @columnWidth: auto, @columnRuleWidth: 0px, @columnRuleStyle: none, @columnRuleColor: rgb(0, 0, 0), @columnFill: auto) {
+  -webkit-columns: @columnWidth @columnCount;
+  columns: @columnWidth @columnCount; // columns列宽/列数(auto | number)
+  columns-gap: @columnGap; // columns列间距(normal 1em | number)
+  columns-rule: @columnRuleWidth @columnRuleStyle @columnRuleColor; // columns列边框宽度/样式/颜色
+  columns-fill: @columnFill; // columns列高度指定(auto本列内容决定 | balance内容最多的列决定)
 }
 
 // 5.columns布局元素
-.col-i(@column-span: none) {
-  -webkit-column-span: @column-span;
-  column-span: @column-span; // columns中某一列是否跨列(none | all)
+.columnsItem(@columnSpan: none) {
+  -webkit-column-span: @columnSpan;
+  column-span: @columnSpan; // columns中某一列是否跨列(none | all)
 }
 
 // 6.flex布局容器：容器设为flex布局以后，子元素的float、clear、vertical-align属性将失效
-.fle(@flex-direction: row, @flex-wrap: wrap, @justify-content: center, @align-items: center, @align-content: stretch) {
+.flex(@justifyContent: flex-start, @flexWrap: nowrap, @flexDirection: row, @alignItems: center, @alignContent: stretch) {
   display: -webkit-flex;
   display: flex;
-  flex-flow: @flex-direction @flex-wrap; // flex-item排列方向/换行方式(row | row-reverse | column | column-reverse / nowrap | wrap | wrap-reverse)
-  justify-content: @justify-content; // flex-item主轴对齐方式(flex-start | flex-end | center | space-between | space-around)
-  align-items: @align-items; // flex-item单交叉轴对齐方式(flex-start | flex-end | center | baseline | stretch)
-  align-content: @align-content; // flex-item多交叉轴对齐方式(flex-start | flex-end | center | space-between | space-around | stretch)
+  flex-flow: @flexDirection @flexWrap; // flex-item排列方向(row | row-reverse | column | column-reverse) 换行方式(nowrap | wrap | wrap-reverse)
+  justify-content: @justifyContent; // flex-item主轴对齐方式(flex-start | flex-end | center | space-between | space-around)
+  align-items: @alignItems; // flex-item单交叉轴对齐方式(flex-start | flex-end | center | baseline | stretch)
+  align-content: @alignContent; // flex-item多交叉轴对齐方式(flex-start | flex-end | center | space-between | space-around | stretch)
 }
 
 // 6.flex布局元素
-.fle-i(@flex-grow: 1, @flex-shrink: 1, @flex-basis: auto, @order: 1, @align-self: auto) {
-  flex: @flex-grow @flex-shrink @flex-basis; // flex-item是否支持放大/缩小(0不支持 | 1支持)
+.flexItem(@flexGrow: 1, @flexShrink: 1, @flexBasis: auto, @order: 0, @alignSelf: auto) {
+  flex: @flexGrow @flexShrink @flexBasis; // flex-item是否支持放大/缩小(0不支持 | 1支持)
   order: @order; // flex-item排序系数(小 -> 大)
-  align-self: @align-self; // flex-item在交叉轴对齐方式(auto | flex-start | flex-end | center | baseline | stretch)
+  align-self: @alignSelf; // flex-item在交叉轴对齐方式(auto | flex-start | flex-end | center | baseline | stretch)
 }
 
 // 7.grid布局容器：容器设为网格布局以后，子元素的float、display: inline-block、display: table-cell、vertical-align、column-*等属性将失效
-.gri(@columnWidth: 100px, @rowHeight: 100px, @grid-column-gap: 5px, @grid-row-gap: @grid-column-gap, @grid-auto-flow: row, @columns: auto-fill, @rows: auto-fill, @align-items: stretch, @justify-items: stretch, @align-content: stretch, @justify-content: stretch) {
+.grid(@columnWidth: 100px, @rowHeight: 100px, @gridColumnGap: 5px, @gridRowGap: @gridColumnGap, @gridAutoFlow: row, @columns: auto-fill, @rows: auto-fill, @alignItems: stretch, @justifyItems: stretch, @alignContent: stretch, @justifyContent: stretch) {
   display: grid;
-  grid-auto-flow: @grid-auto-flow; // 水平/垂直开始排列
+  grid-auto-flow: @gridAutoFlow; // 水平/垂直开始排列
   grid-template-columns: repeat(@columns, @columnWidth); // 列数/列宽度
   grid-template-rows: repeat(@rows, @rowHeight); // 行数/行宽度
-  grid-gap: @grid-row-gap @grid-column-gap; // 行/列间隔
-  place-items: @align-items @justify-items; // grid-item本身填充方式(start | end | center | stretch)
-  place-content: @align-content @justify-content; // grid-item内部填充方式(start | end | center | stretch)
+  grid-gap: @gridRowGap @gridColumnGap; // 行/列间隔
+  place-items: @alignItems @justifyItems; // grid-item本身填充方式(start | end | center | stretch)
+  place-content: @alignContent @justifyContent; // grid-item内部填充方式(start | end | center | stretch)
 }
 
 // 7.grid布局元素
-.gri-i(@columnSpan: 1, @rowSpan: 1, @display: inline-grid, @align-self: auto, @justify-self: auto) {
+.gridItem(@columnSpan: 1, @rowSpan: 1, @display: inline-grid, @alignSelf: auto, @justifySelf: auto) {
   display: @display;
   grid-column: span @columnSpan / 1; // grid-item占几列
   grid-row: span @rowSpan / 1; // grid-item占几行
-  place-self: @align-self @justify-self; // grid-item内部填充方式(start | end | center | stretch)
+  place-self: @alignSelf @justifySelf; // grid-item内部填充方式(start | end | center | stretch)
 }
 
 
 // 二.字体文本相关
 // 1.字体尺寸：字号、字行高、对齐方式、字宽、字间距
-.fz(@font-size: 16px, @line-height: @font-size, @text-align: start, @font-weight: normal, @word-spacing: normal) {
-  font-size: @font-size;
-  font-weight: @font-weight;
-  line-height: @line-height;
-  text-align: @text-align;
-  word-spacing: @word-spacing;
+.fontSize(@fontSize: 16px, @textAlign: start, @fontWeight: normal, @lineHeight: @fontSize, @wordSpacing: normal) {
+  font-size: @fontSize;
+  font-weight: @fontWeight;
+  line-height: @lineHeight;
+  text-align: @textAlign;
+  word-spacing: @wordSpacing;
 }
 
 // 2.字体风格：字风格、字首行缩进、字修饰、字大小写转换
-.fs(@font-style: normal, @text-indent: 0, @text-decoration: none, @text-transform: none) {
-  font-style: @font-style; // 文本风格：斜体italic
-  text-indent: @text-indent; // 文本首行缩进尺寸
-  text-decoration: @text-decoration; // 文本修饰：删除线line-through
-  text-transform: @text-transform; // 文本转换：单词首字母大写capitalize
+.fontStyle(@fontStyle: normal, @textIndent: 0, @textDecoration: none, @textTransform: none) {
+  font-style: @fontStyle; // 文本风格：斜体italic
+  text-indent: @textIndent; // 文本首行缩进尺寸
+  text-decoration: @textDecoration; // 文本修饰：删除线line-through
+  text-transform: @textTransform; // 文本转换：单词首字母大写capitalize
 }
 
-// 3.字体样式：字色、状态字色、状态背景色、字体阴影
-.fc(@color: rgba(0, 0, 0, 1), @hoverColor: @color, @activeColor: @color, @selColor: @color, @selBgColor: rgba(0, 0, 0, 0), @text-shadow: 0 0 0 rgba(0, 0, 0, 0)) {
+// 3.字体样式：字色、字体阴影
+.fontColor(@color: rgb(0, 0, 0), @textShadow: 0 0 0 transparent) {
   color: @color;
-  text-shadow: @text-shadow;
-
-  &:active {
-    color: @activeColor;
-  }
-
-  &:hover {
-    color: @hoverColor;
-  }
-
-  &::selection {
-    color: @selColor;
-    background-color: @selBgColor;
-  }
-
-  &::-moz-selection {
-    color: @selColor;
-    background-color: @selBgColor;
-  }
+  text-shadow+: @textShadow;
 }
 
 // 4.字体换行：单行省略号
-.fw() {
+.fontWrap(nowrap) {
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important; // 空白处不换行
 }
 
 // 4.字体换行：多行文本省略号
-.fw(@lines, @height: auto) when(isnumber(@lines)) and(@lines > 1) {
+.fontWrap(wrap, @lines, @height: auto) when(isnumber(@lines)) and(@lines > 1) {
   display: -webkit-box; // 作为弹性伸缩盒显示
   -webkit-box-orient: vertical; // 设置或检索伸缩盒对象的子元素的排列方式
   -webkit-line-clamp: @lines; //设定行数，超出行数则省略，只webkit有效
@@ -177,8 +159,43 @@
   height: @height;
 }
 
-// 5.文本禁止被选中
-.fn() {
+// 5.自定义字体：字体名、字体文件
+.fontFamily(@fontFamily, @url) {
+  @font-face {
+    font-family: @fontFamily;
+    src: url('@{url}');
+  }
+}
+
+
+// 三.图片相关
+// 1.img标签图片自适应
+.imgAdaption() {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// 2.背景图片自适应：本地资源
+.backgroundImage(local, @baseUrl: '', @imageName: '', @backgroundSize: cover, @imageExtension: 'png') {
+  background-image: url('@{baseUrl}/@{imageName}.@{imageExtension}');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: @backgroundSize; // cover 保持图片比例铺满容器 | contain 保持图片比例在容器完整显示图片
+}
+
+// 2.背景图片自适应：网络资源
+.backgroundImage(online, @url: '', @backgroundSize: cover) {
+  background-image: url('@{url}');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: @backgroundSize; // cover 保持图片比例铺满容器 | contain 保持图片比例在容器完整显示图片
+}
+
+
+// 四.效果相关
+// 1.文本禁止被选中
+.userSelectNone() {
   -webkit-user-select: none; // Chrome, Safari, Opera
   -moz-user-select: none; // Firefox
   -ms-user-select: none; // IE10
@@ -186,207 +203,216 @@
   user-select: none;
 }
 
-// 6.自定义字体：字体名、字体文件
-.ff(@font-family, @src) {
-  @font-face {
-    font-family: @ff;
-    src: url('@{src}');
-  }
+// 2.禁用css伪类和js事件触发
+.pointerEventNone() {
+  pointer-events: none;
 }
 
-
-// 三.图片相关
-// 1.image标签图片自适应
-.im() {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-// 2.背景图片自适应：本地资源
-.ib(ofl, @baseUrl: '', @imgName: '', @imgExt: 'png', @background-size: cover) {
-  background: url('@{baseUrl}/@{imgName}.@{imgExt}') no-repeat center center;
-  background-size: @background-size;
-}
-
-// 2.背景图片自适应：网络资源
-.ib(onl, @url: '', @background-size: cover) {
-  background-image: url('@{url}');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: @background-size;
-}
-
-
-// 四.效果相关
-// 1.空元素处理：默认隐藏
-.em() {
+// 3.空元素处理：隐藏
+.empty() {
   &:empty {
     display: none;
   }
 }
 
-// 1.空元素处理：填充文本
-.em(@content, @font-size: 16px, @line-height: @font-size, @color: gray) when(isstring(@content)) {
+// 3.空元素处理：填充文本
+.empty(@content, @fontSize: 16px, @lineHeight: @fontSize, @color: gray) when(isstring(@content)) {
   &:empty::before {
-    .fz(@font-size, @line-height);
+    .fontSize(@fontSize, @lineHeight);
+    .fontColor(@color);
     display: block;
     content: @content;
-    color: @color;
   }
 }
 
-// 2.边框
-.bo(@border-color: rgba(50, 50, 50, 1), @border-width: 1px, @border-style: solid, @border-type: border) when(iskeyword(@border-type)) {
-  @{border-type}: @border-width @border-style @border-color;
+// 4.边框
+.border(@borderColor: rgb(50, 50, 50), @borderWidth: 1px, @borderStyle: solid, @borderType: border) when(iskeyword(@borderType)) {
+  @{borderType}: @borderWidth @borderStyle @borderColor;
 }
 
-// 3.倒角
-.br(@border-radius: 10px, @border-radius-type: border-radius) when(iskeyword(@border-radius-type)) {
-  @{border-radius-type}: @border-radius;
+// 4.边框：倒角
+.borderRadius(@border-radius: 10px, @borderRadiusType: border-radius) when(iskeyword(@borderRadiusType)) {
+  @{borderRadiusType}: @border-radius;
 }
 
-// 4.阴影：外投影
-.bs(nor, @color: rgba(0, 0, 0, 0.2), @x: 0px, @y: 5px, @blur: 10px, @extend: 1px) {
-  box-shadow: @x @y @blur @extend @color;
+// 5.阴影：外投影
+.boxShadow(outside, @color: rgba(0, 0, 0, 0.2), @x: 0px, @y: 5px, @blur: 10px, @extend: 1px) {
+  box-shadow+: @x @y @blur @extend @color;
 }
 
-// 4.阴影：内投影
-.bs(ins, @color: rgba(0, 0, 0, 0.4), @x: 5px, @y: 5px, @blur: 10px, @extend: 0px) {
-  box-shadow: @x @y @blur @extend @color inset;
+// 5.阴影：内投影
+.boxShadow(inside, @color: rgba(0, 0, 0, 0.4), @x: 5px, @y: 5px, @blur: 10px, @extend: 0px) {
+  box-shadow+: @x @y @blur @extend @color inset;
 }
 
-// 5.裁切：路径，不会改变容器尺寸
-.cp(nor, @clip-path: inset(10px 10px)) {
-  clip-path: @clip-path;
+// 6.裁切：路径，不会改变容器尺寸
+.clipPath(normal, @clipPath: inset(10px 10px)) {
+  -webkit-clip-path: @clipPath;
+  clip-path: @clipPath; // inset(长x 宽y) 矩形 | circle(半径 at 圆心x 圆心y) 圆形 
 }
 
-// 5.裁切：svg，不会改变容器尺寸
-.cp(svg, @id: '#clip-path') {
+// 6.裁切：svg，不会改变容器尺寸
+.clipPath(svg, @id: '#clip-path') {
+  -webkit-clip-path: url('@{id}');
   clip-path: url('@{id}');
 }
 
-// 6.鼠标手势：系统
-.cu(nor, @cursor: pointer) when(iskeyword(@cursor)) {
+// 7.鼠标手势：系统
+.cursor(normal, @cursor: pointer) when(iskeyword(@cursor)) {
   cursor: @cursor; // default默认箭头 | pointer可点击 | move移动  
 }
 
-// 6.鼠标手势：本地资源
-.cu(ofl, @baseUrl: '', @imgName: '', @imgExt: 'png', @cursor: default) when(iskeyword(@cursor)) {
-  cursor: url('@{baseUrl}/@{imgName}.@{imgExt}'),
+// 7.鼠标手势：本地资源
+.cursor(local, @baseUrl: '', @imageName: '', @imageExtension: 'png', @cursor: default) when(iskeyword(@cursor)) {
+  cursor: url('@{baseUrl}/@{imageName}.@{imageExtension}'),
   @cursor;
 }
 
-// 6.鼠标手势：网络资源
-.cu(onl, @url: '', @cursor: default) when(iskeyword(@cursor)) {
+// 7.鼠标手势：网络资源
+.cursor(online, @url: '', @cursor: default) when(iskeyword(@cursor)) {
   cursor: url('@{url}'),
   @cursor;
 }
 
-// 7.禁用css伪类和js事件触发
-.pe() {
-  pointer-events: none;
-}
-
 // 8.线性渐变：双色线性渐变
-.lg(bic, @lcolor: #ffa751, @rcolor: #ffe259, @angle: 90deg) {
-  background: linear-gradient(@angle, @lcolor, @rcolor);
+.linearGradient(two, @leftColor: #ffa751, @rightColor: #ffe259, @angle: 90deg) {
+  // angle | left/right | top/bottom
+  background-image+: linear-gradient(@angle, @leftColor, @rightColor);
 }
 
 // 8.线性渐变：三色线性渐变
-.lg(tic, @lcolor: #0F2027, @ccolor: #203A43, @rcolor: #2C5364, @angle: 90deg) {
-  background: linear-gradient(@angle, @lcolor 0, @ccolor 50%, @rcolor 100%);
+.linearGradient(three, @leftColor: #0F2027, @centerColor: #203A43, @rightColor: #2C5364, @angle: 90deg) {
+  background-image+: linear-gradient(@angle, @leftColor 0, @centerColor 50%, @rightColor 100%);
 }
 
-// 9.径向渐变：双色径向渐变
-.rg(bic, @icolor: #ffa751, @ocolor: #ffe259, @shape: circle, @size: farthest-corner, @position: center) {
-  background: radial-gradient(@shape @size at @position, @icolor, @ocolor);
+// 9.重复线性渐变：斜线
+.repeatingLinearGradient(slant, @color: #ffa751, @angle: 45deg) {
+  background-image+: repeating-linear-gradient(@angle, transparent 0%, transparent 2.5%, @color 2.5%, @color 5%);
 }
 
-// 9.径向渐变：三色径向渐变
-.rg(tic, @icolor: #0F2027, @ccolor: #203A43, @ocolor: #2C5364, @shape: circle, @size: farthest-corner, @position: center) {
-  background: radial-gradient(@shape @size at @position, @icolor, @ccolor, @ocolor);
+// 10.径向渐变：双色径向渐变
+.radialGradient(two, @insideColor: #ffa751, @outsideColor: #ffe259, @shape: circle, @size: farthest-corner, @position: center) {
+  background-image+: radial-gradient(@shape @size at @position, @insideColor, @outsideColor);
+}
+
+// 10.径向渐变：三色径向渐变
+.radialGradient(three, @insideColor: #0F2027, @centerColor: #203A43, @outsideColor: #2C5364, @shape: circle, @size: farthest-corner, @position: center) {
+  background-image+: radial-gradient(@shape @size at @position, @insideColor, @centerColor, @outsideColor);
+}
+
+// 10.状态：鼠标悬浮时(pc) | 手指点击后(mobile)
+.hoverColor(@property: color, @hoverColor: rgb(255, 195, 0)) when (iskeyword(@property)) {
+  &:hover {
+    @{property}: @hoverColor;
+  }
+}
+
+// 10.状态：鼠标点击时(pc) | 手指点击时(mobile)
+.activeColor(@property: color, @activeColor: rgb(150, 150, 150)) when (iskeyword(@property)) {
+  &:active {
+    @{property}: @activeColor;
+  }
+}
+
+// 10.状态：鼠标选中时(pc)
+.selectionColor(@selectionColor: rgb(90, 200, 255), @selectionBackgroundColor: transparent) {
+  &::selection {
+    color: @selectionColor; // 选中文本颜色
+    background-color: @selectionBackgroundColor; // 选中背景颜色
+  }
+
+  &::-moz-selection {
+    color: @selectionColor;
+    background-color: @selectionBackgroundColor;
+  }
 }
 
 
 // 五.滤镜相关
 // 1.滤镜：滤镜会导致fixed元素定位失效，建议分别给固定元素和其他元素加filter，不要直接在body中添加
-.fi(nor, @filter-type: blur(3px)) {
-  -webkit-filter: @filter-type; // Chrome, Safari
-  -moz-filter: @filter-type; // Firefox
-  -ms-filter: @filter-type; // IE10
-  -o-filter: @filter-type; // Opera
-  filter: @filter-type;
+.filter(normal, @filterType: blur(3px)) {
+  -webkit-filter: @filterType; // Chrome, Safari
+  -moz-filter: @filterType; // Firefox
+  -ms-filter: @filterType; // IE10
+  -o-filter: @filterType; // Opera
+  filter: @filterType;
 }
 
 // 2.色相
-.fi(hue, @angle: 90deg) {
-  .fi(nor, hue-rotate(@angle));
+.filter(hueRotate, @angle: 90deg) {
+  .filter(normal, hue-rotate(@angle));
 }
 
 // 3.饱和度
-.fi(sat, @percentage: 50%) {
-  .fi(nor, saturate(@percentage));
+.filter(saturate, @percentage: 50%) {
+  .filter(normal, saturate(@percentage));
 }
 
 // 4.明度
-.fi(bri, @percentage: 50%) {
-  .fi(nor, brightness(@percentage));
+.filter(brightness, @percentage: 50%) {
+  .filter(normal, brightness(@percentage));
 }
 
 // 5.对比度
-.fi(con, @percentage: 50%) {
-  .fi(nor, contrast(@percentage));
+.filter(contrast, @percentage: 50%) {
+  .filter(normal, contrast(@percentage));
 }
 
 // 6.灰度
-.fi(gra, @percentage: 50%) {
-  .fi(nor, grayscale(@percentage));
+.filter(grayscale, @percentage: 50%) {
+  .filter(normal, grayscale(@percentage));
 }
 
 // 7.褐色度
-.fi(sep, @percentage: 50%) {
-  .fi(nor, sepia(@percentage));
+.filter(sepia, @percentage: 50%) {
+  .filter(normal, sepia(@percentage));
 }
 
 // 8.颜色反转
-.fi(inv, @percentage: 50%) {
-  .fi(nor, invert(@percentage));
+.filter(invert, @percentage: 50%) {
+  .filter(normal, invert(@percentage));
 }
 
 // 9.透明度
-.fi(opa, @percentage: 50%) {
-  .fi(nor, opacity(@percentage));
+.filter(opacity, @percentage: 50%) {
+  .filter(normal, opacity(@percentage));
 }
 
 // 10.高斯模糊
-.fi(blu, @radius: 3px) {
-  .fi(nor, blur(@radius));
+.filter(blur, @radius: 3px) {
+  .filter(normal, blur(@radius));
 }
 
 // 11.图片阴影：webkit不支持drop-shadow的spread阴影扩展
-.fi(drs, @color: rgba(0, 0, 0, 0.5), @x: 5px, @y: 5px, @blur: 5px) {
-  .fi(nor, drop-shadow(@x @y @blur @color));
+.filter(dropShadow, @color: rgba(0, 0, 0, 0.5), @x: 5px, @y: 5px, @blur: 5px) {
+  .filter(normal, drop-shadow(@x @y @blur @color));
+}
+
+// 12.混合模式：多元素
+.mixBlendMode(@mixBlendMode: overlay) {
+  // initial 初始 | inherit 继承 | unset 复原 | normal 无 
+  // multiply 正片叠底 | screen 滤色 | overlay 叠加 | darken 变暗 | lighten 变亮 | color-dodge 颜色减淡 | color-burn 颜色加深 | hard-light 强光 | soft-light 柔光 | difference 差值 | exclusion 排除 | hue 色相 | saturation 饱和度 | color 颜色 | luminosity 亮度
+  mix-blend-mode: @mixBlendMode;
 }
 
 
 // 六.动画相关
 // 1.transition动画
-.tran(@property: all, @duration: 0.35s, @timing-function: ease-in-out, @delay: 0s) {
-  -webkit-transition: @property @duration @timing-function @delay; // Chrome、Safari
-  transition: @property @duration @timing-function @delay;
+.transition(@property: all, @duration: 0.35s, @timingFunction: ease-in-out, @delay: 0s) when (iskeyword(@property)) {
+  -webkit-transition+: @property @duration @timingFunction @delay; // Chrome、Safari
+  transition+: @property @duration @timingFunction @delay;
 }
 
 // 2.keyframes动画
-.keyf(@name, @duration: 0.5s, @timing-function: ease-in-out, @delay: 0s, @iteration-count: 1, @direction: normal, @fill-mode: forwards, @play-state: running) {
-  -webkit-animation: @name @duration @timing-function @delay;
-  -webkit-animation-iteration-count: @iteration-count;
-  -webkit-animation-direction: @direction;
-  -webkit-animation-fill-mode: @fill-mode;
-  -webkit-animation-play-state: @play-state;
-  animation: @name @duration @timing-function @delay; // 动画执行曲线(ease线性 | step(1)非线性)
-  animation-iteration-count: @iteration-count; // 动画执行次数(number次数 | infinite无限次)
-  animation-direction: @direction; // 动画执行顺序(normal正向 | reverse反向 | alternate先正向后反向 | alternate-reverse先反向后正向)
-  animation-fill-mode: @fill-mode; // 动画执行结束样式(none无 | backwards动画起始帧样式 | forwards动画结束帧样式)
-  animation-play-state: @play-state; // 动画执行状态(running运行 | paused暂停)
+.animation(@animationId, @duration: 0.5s, @timingFunction: ease-in-out, @delay: 0s, @iterationCount: 1, @direction: normal, @fillMode: forwards, @playState: running) {
+  -webkit-animation+: @animationId @duration @timingFunction @delay;
+  -webkit-animation-iteration-count+: @iterationCount;
+  -webkit-animation-direction+: @direction;
+  -webkit-animation-fill-mode+: @fillMode;
+  -webkit-animation-play-state+: @playState;
+  animation+: @animationId @duration @timingFunction @delay; // 动画执行曲线(ease 线性 | step(1) 非线性)
+  animation-iteration-count+: @iterationCount; // 动画执行次数(number 次数 | infinite 无限次)
+  animation-direction+: @direction; // 动画执行顺序(normal 正向 | reverse 反向 | alternate 先正向后反向 | alternate-reverse 先反向后正向)
+  animation-fill-mode+: @fillMode; // 动画执行结束样式(none 无 | backwards 动画起始帧样式 | forwards 动画结束帧样式)
+  animation-play-state+: @playState; // 动画执行状态(running 运行 | paused 暂停)
 }

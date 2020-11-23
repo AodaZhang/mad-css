@@ -1,0 +1,44 @@
+/*
+ * @Description: less rem mixin
+ * @Author: AodaZhang
+ * @Date: 2020-05-15 09:45:16
+ * @LastEditTime: 2020-07-30 15:05:25
+ */
+
+@baseSize: 750px; // 移动端适配：设计稿基础尺寸默认750px
+
+// 一.rem标准计算函数：最终转换比为 页面1rem = 设计稿100px
+.rem() {
+  html {
+    font-size: 100vw / @baseSize * 100 !important;
+  }
+}
+
+// 二.px转换rem工具函数：需要先调用.rem()更换当前rem基准值，建议css单位以rem为主，不建议使用px
+// 1.px标准计算函数
+.rem(px2rem, @property, @size) when (iskeyword(@property)) {
+  @sizeCount: length(@size); // 获取数值个数
+  .rem(px2remCalc, @property, @size, "", @sizeCount);
+}
+
+// 2.css多值转换函数：递归开始
+.rem(px2remCalc, @property, @size, @sizeCalc, @sizeCount) when (@sizeCount>0) {
+  @currentSize: extract(@size, @sizeCount); // 获取当前数值
+  .rem(px2remTransform, @currentSize); // 转换当前数值为rem
+  .rem(px2remCalc, @property, @size, ~'@{sizeTransform} @{sizeCalc}', @sizeCount - 1);
+}
+
+// 2.css多值转换函数：递归结束
+.rem(px2remCalc, @property, @size, @sizeCalc, @sizeCount) when (@sizeCount=0) {
+  @{property}: @sizeCalc;
+}
+
+// 3.px转换rem函数：px转换为rem
+.rem(px2remTransform, @size) when(isunit(@size, 'px')) {
+  @sizeTransform: 0.01rem * @size; // less计算以第一个系数单位为准
+}
+
+// 3.px转换rem函数：非px不做处理
+.rem(px2remTransform, @size) when not(isunit(@size, 'px')) {
+  @sizeTransform: @size;
+}
